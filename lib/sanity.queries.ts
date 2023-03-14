@@ -39,6 +39,13 @@ export const postBySlugQuery = groq`
 }
 `
 
+export const homeGalleryQuery = groq`
+*[_type == "gallery" && title == "Home Gallery"] [0] {
+  ...,
+  images[]{asset->}
+}
+`
+
 export interface Author {
   name?: string
   picture?: any
@@ -61,4 +68,9 @@ export interface Settings {
   ogImage?: {
     title?: string
   }
+}
+
+export interface Gallery {
+  title?: string
+  images: any[]
 }

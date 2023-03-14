@@ -7,6 +7,8 @@ import {
   postSlugsQuery,
   type Settings,
   settingsQuery,
+  homeGalleryQuery,
+  Gallery,
 } from 'lib/sanity.queries'
 import { createClient } from 'next-sanity'
 
@@ -61,4 +63,11 @@ export async function getPostAndMoreStories(
     return await client.fetch(postAndMoreStoriesQuery, { slug })
   }
   return { post: null, morePosts: [] }
+}
+
+export async function getHomeGallery(): Promise<Gallery> {
+  if (client) {
+    return (await client.fetch(homeGalleryQuery)) || { images: [] }
+  }
+  return { images: [] }
 }

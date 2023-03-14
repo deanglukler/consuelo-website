@@ -1,0 +1,12 @@
+.hiddenAnim {
+  opacity: 0;
+  filter: blur (10px);
+  transform: translateY(30px);
+  transition: all 500ms ease-out;
+}
+
+.showAnim {
+  filter: blur (0);
+  transform: translateY(0px);
+  opacity: 1;
+}

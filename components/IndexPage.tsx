@@ -4,19 +4,20 @@ import Layout from 'components/BlogLayout'
 import HeroPost from 'components/HeroPost'
 import IndexPageHead from 'components/IndexPageHead'
 import MoreStories from 'components/MoreStories'
-import IntroTemplate from 'intro-template'
 import * as demo from 'lib/demo.data'
-import type { Post, Settings } from 'lib/sanity.queries'
+import type { Gallery, Post, Settings } from 'lib/sanity.queries'
+import HomeGallery from './homepage/HomeGallery'
 
 export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
+  homeGallery: Gallery
   posts: Post[]
   settings: Settings
 }
 
 export default function IndexPage(props: IndexPageProps) {
-  const { preview, loading, posts, settings } = props
+  const { preview, loading, posts, settings, homeGallery } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
 
@@ -39,7 +40,7 @@ export default function IndexPage(props: IndexPageProps) {
           )}
           {morePosts.length > 0 && <MoreStories posts={morePosts} />}
         </Container>
-        <IntroTemplate />
+        <HomeGallery images={homeGallery.images} />
       </Layout>
     </>
   )
