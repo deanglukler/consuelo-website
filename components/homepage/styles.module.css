@@ -1,12 +1,10 @@
-/* Media query for screens smaller than 640px */
-@media (max-width: 639px) {
+/* @media (max-width: 639px) {
   .galleryPadding {
     padding-left: 5%;
     padding-right: 5%;
   }
 }
 
-/* Media query for screens between 640px and 1023px */
 @media (min-width: 640px) and (max-width: 1023px) {
   .galleryPadding {
     padding-left: 7.5%;
@@ -14,10 +12,9 @@
   }
 }
 
-/* Media query for screens larger than 1023px */
 @media (min-width: 1024px) {
   .galleryPadding {
     padding-left: 10%;
     padding-right: 10%;
   }
-}
+} */

@@ -1,27 +1,26 @@
 import { urlForImage } from 'lib/sanity.image'
-import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import styles from './styles.module.css'
+import GalleryImage from './GalleryImage'
 
 interface Props {
   images: any[]
 }
 
-function getRandomSideMargin(number) {
+function randomSideMargin(number) {
   const min = number * 0.01
-  const max = number * 0.1
+  const max = number * 0.08
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-function getRandomBottomMargin(number) {
-  const min = number * 0.05
+function randomBottomMargin(number) {
+  const min = number * 0.1
   const max = number * 0.2
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-function getRandomInRange(number) {
-  const min = number * 0.2
-  const max = number * 0.4
+function randomWidth(number) {
+  const min = number * 0.35
+  const max = number * 0.7
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
@@ -64,28 +63,31 @@ export default function HomeGallery({ images }: Props) {
   }, [])
 
   return (
-    <div
-      ref={ref}
-      className={`mx-auto flex w-full flex-wrap items-center justify-around ${styles.galleryPadding}`}
-    >
+    <div ref={ref} className={`mx-auto flex w-full flex-wrap justify-around`}>
       {images.map((source) => {
         const { width, height } = source?.asset?.metadata?.dimensions
-        const setWidth = getRandomInRange(boundingBoxWidth)
+        const setWidth = randomWidth(boundingBoxWidth)
         const scaleFactor = setWidth / width
-        const marginLeft = getRandomSideMargin(boundingBoxWidth)
-        const marginRight = getRandomSideMargin(boundingBoxWidth)
-        const marginBottom = getRandomBottomMargin(boundingBoxWidth)
+        const marginLeft = randomSideMargin(boundingBoxWidth)
+        const marginRight = randomSideMargin(boundingBoxWidth)
+        const marginBottom = randomBottomMargin(boundingBoxWidth)
         return (
-          <Image
+          <GalleryImage
             key={source.asset._id}
             alt={`Beautiful Photo`}
             src={urlForImage(source).url()}
             width={setWidth}
             height={height * scaleFactor}
-            sizes="100vw"
-            priority={true}
-            style={{ marginLeft, marginBottom, marginRight, flexGrow: 1 }}
-            className="hiddenAnim"
+            thumbnailStyle={{
+              marginLeft,
+              marginBottom,
+              marginRight,
+              width: setWidth,
+              height: height * scaleFactor,
+              position: 'relative',
+              flexGrow: 1,
+            }}
+            thumbnailClassName="hiddenAnim"
           />
         )
       })}

@@ -23,8 +23,7 @@ export default defineType({
     }),
     defineField({
       name: 'description',
-      description:
-        'Used both for the <meta> description tag for SEO, and the blog subheader.',
+      description: 'Used the <meta> description tag for SEO',
       title: 'Description',
       type: 'array',
       initialValue: demo.description,
