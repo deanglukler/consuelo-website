@@ -1,4 +1,5 @@
 import { urlForImage } from 'lib/sanity.image'
+import Masonry from 'react-masonry-component'
 import { useEffect, useRef, useState } from 'react'
 import GalleryImage from './GalleryImage'
 
@@ -6,43 +7,14 @@ interface Props {
   images: any[]
 }
 
-function randomSideMargin(number) {
-  const min = number * 0.01
-  const max = number * 0.08
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
-
-function randomBottomMargin(number) {
-  const min = number * 0.1
-  const max = number * 0.2
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
-
-function randomWidth(number) {
-  const min = number * 0.35
-  const max = number * 0.7
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
+const MD_BREAKPOINT = 350
+const LG_BREAKPOINT = 700
+const GUTTER_LG = 20
+const GUTTER_MD = 10
 
 export default function HomeGallery({ images }: Props) {
   const ref = useRef(null)
   const [boundingBoxWidth, setBoundingBoxWidth] = useState(null)
-
-  useEffect(() => {
-    // Get the bounding box width on mount and on screen resize
-    function updateBoundingBoxWidth() {
-      if (ref.current) {
-        const { width } = ref.current.getBoundingClientRect()
-        setBoundingBoxWidth(width)
-      }
-    }
-    updateBoundingBoxWidth()
-    window.addEventListener('resize', updateBoundingBoxWidth)
-
-    return () => {
-      window.removeEventListener('resize', updateBoundingBoxWidth)
-    }
-  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -62,33 +34,58 @@ export default function HomeGallery({ images }: Props) {
     }
   }, [])
 
+  useEffect(() => {
+    // Get the bounding box width on mount and on screen resize
+    function updateBoundingBoxWidth() {
+      if (ref.current) {
+        const { width } = ref.current.getBoundingClientRect()
+        setBoundingBoxWidth(width)
+      }
+    }
+    updateBoundingBoxWidth()
+    window.addEventListener('resize', updateBoundingBoxWidth)
+
+    return () => {
+      window.removeEventListener('resize', updateBoundingBoxWidth)
+    }
+  }, [])
+
   return (
-    <div ref={ref} className={`mx-auto flex w-full flex-wrap justify-around`}>
-      {images.map((source) => {
-        const { width, height } = source?.asset?.metadata?.dimensions
-        const setWidth = randomWidth(boundingBoxWidth)
-        const scaleFactor = setWidth / width
-        const marginLeft = randomSideMargin(boundingBoxWidth)
-        const marginRight = randomSideMargin(boundingBoxWidth)
-        const marginBottom = randomBottomMargin(boundingBoxWidth)
-        return (
-          <GalleryImage
-            key={source.asset._id}
-            alt={`Beautiful Photo`}
-            src={urlForImage(source).url()}
-            thumbnailStyle={{
-              marginLeft,
-              marginBottom,
-              marginRight,
-              width: setWidth,
-              height: height * scaleFactor,
-              position: 'relative',
-              flexGrow: 1,
-            }}
-            thumbnailClassName="hiddenAnim"
-          />
-        )
-      })}
+    <div ref={ref}>
+      <Masonry>
+        {images.map((source) => {
+          const { width, height } = source?.asset?.metadata?.dimensions
+          let setWidth = 0
+          let marginLeft = 0
+          let marginBottom = GUTTER_MD
+          if (boundingBoxWidth > LG_BREAKPOINT) {
+            marginLeft = GUTTER_LG
+            marginBottom = GUTTER_LG
+            setWidth = boundingBoxWidth / 3 - GUTTER_LG
+          } else if (boundingBoxWidth > MD_BREAKPOINT) {
+            marginLeft = GUTTER_MD
+            setWidth = boundingBoxWidth / 2 - GUTTER_MD
+          } else {
+            setWidth = boundingBoxWidth
+          }
+          const scaleFactor = setWidth / width
+          return (
+            <GalleryImage
+              key={source.asset._id}
+              alt={`Beautiful Photo`}
+              src={urlForImage(source).url()}
+              thumbnailClassName={`hiddenAnim`}
+              thumbnailStyle={{
+                width: setWidth,
+                height: height * scaleFactor,
+                marginLeft,
+                marginBottom,
+                boxSizing: 'border-box',
+              }}
+            />
+          )
+        })}
+      </Masonry>
     </div>
   )
 }
