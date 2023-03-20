@@ -1,11 +1,9 @@
-import Container from 'components/BlogContainer'
-import BlogHeader from 'components/BlogHeader'
-import Layout from 'components/BlogLayout'
-import HeroPost from 'components/HeroPost'
+import Container from 'components/Container'
+import SiteHeader from 'components/SiteHeader'
+import Layout from 'components/Layout'
 import IndexPageHead from 'components/IndexPageHead'
-import MoreStories from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
-import type { Gallery, Post, Settings } from 'lib/sanity.queries'
+import { Gallery, PageCategory, Post, Settings } from '../types'
 import HomeGallery from './homepage/HomeGallery'
 
 export interface IndexPageProps {
@@ -14,12 +12,12 @@ export interface IndexPageProps {
   homeGallery: Gallery
   posts: Post[]
   settings: Settings
+  pageCategories: PageCategory[]
 }
 
 export default function IndexPage(props: IndexPageProps) {
-  const { preview, loading, posts, settings, homeGallery } = props
-  const [heroPost, ...morePosts] = posts || []
-  const { title = demo.title, description = demo.description } = settings || {}
+  const { preview, loading, settings, homeGallery, pageCategories } = props
+  const { title = demo.title } = settings || {}
 
   return (
     <>
@@ -27,7 +25,7 @@ export default function IndexPage(props: IndexPageProps) {
 
       <Layout preview={preview} loading={loading}>
         <Container>
-          <BlogHeader title={title} description={description} level={1} />
+          <SiteHeader title={title} pageCategories={pageCategories} level={1} />
           {/* {heroPost && (
             <HeroPost
               title={heroPost.title}

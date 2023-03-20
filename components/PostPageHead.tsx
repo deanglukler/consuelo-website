@@ -1,8 +1,8 @@
 import BlogMeta from 'components/BlogMeta'
 import * as demo from 'lib/demo.data'
 import { urlForImage } from 'lib/sanity.image'
-import { Post, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
+import { Post, Settings } from '../types'
 
 export interface PostPageHeadProps {
   settings: Settings

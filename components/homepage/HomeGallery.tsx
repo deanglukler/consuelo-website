@@ -76,8 +76,6 @@ export default function HomeGallery({ images }: Props) {
             key={source.asset._id}
             alt={`Beautiful Photo`}
             src={urlForImage(source).url()}
-            width={setWidth}
-            height={height * scaleFactor}
             thumbnailStyle={{
               marginLeft,
               marginBottom,

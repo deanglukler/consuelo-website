@@ -9,8 +9,24 @@ const postFields = groq`
   "slug": slug.current,
   "author": author->{name, picture},
 `
+const pageFields = groq`
+  _id,
+  body,
+  overview,
+  title,
+  "slug": slug.current,
+`
+const pageCategoryFields = groq`
+  _id,
+  categoryName,
+  "slug": slug.current,
+`
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
+
+export const pageCategoriesQuery = groq`*[_type == 'pageCategory'] [] {
+  ${pageCategoryFields} 
+}`
 
 export const indexQuery = groq`
 *[_type == "post"] | order(date desc, _updatedAt desc) {
@@ -46,31 +62,64 @@ export const homeGalleryQuery = groq`
 }
 `
 
-export interface Author {
-  name?: string
-  picture?: any
-}
-
-export interface Post {
-  _id: string
-  title?: string
-  coverImage?: any
-  date?: string
-  excerpt?: string
-  author?: Author
-  slug?: string
-  content?: any
-}
-
-export interface Settings {
-  title?: string
-  description?: any[]
-  ogImage?: {
-    title?: string
+export const homePageQuery = groq`
+  *[_type == "home"][0]{
+    _id,
+    footer,
+    overview,
+    showcaseProjects[]->{
+      _type,
+      coverImage,
+      overview,
+      "slug": slug.current,
+      tags,
+      title,
+    },
+    title,
   }
-}
+`
 
-export interface Gallery {
-  title?: string
-  images: any[]
-}
+export const homePageTitleQuery = groq`
+  *[_type == "home"][0].title
+`
+
+export const pagesBySlugQuery = groq`
+  *[_type == "page" && slug.current == $slug][0] {
+    ${pageFields}
+  }
+`
+
+export const pageCategoryBySlugQuery = groq`
+  *[_type == 'pageCategory' && slug.current == $slug][0] {
+    ${pageCategoryFields}
+  }
+`
+
+export const pagesByPageCategorySlugQuery = groq`
+  *[_type == 'page' && references(*[_type == 'pageCategory' && slug.current == $slug][0]._id)] [] {
+    ${pageFields}
+  }
+`
+
+export const projectBySlugQuery = groq`
+  *[_type == "project" && slug.current == $slug][0] {
+    _id,
+    client,
+    coverImage,
+    description,
+    duration,
+    overview,
+    site,
+    "slug": slug.current,
+    tags,
+    title,
+  }
+`
+
+export const projectPaths = groq`
+  *[_type == "project" && slug.current != null].slug.current
+`
+
+export const pagePaths = groq`
+  *[_type == "page" && slug.current != null].slug.current
+`

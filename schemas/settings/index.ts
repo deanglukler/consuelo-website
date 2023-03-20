@@ -55,6 +55,23 @@ export default defineType({
       validation: (rule) => rule.max(155).required(),
     }),
     defineField({
+      name: 'menuItems',
+      title: 'Menu Item list',
+      description: 'Links displayed on the header of your site.',
+      type: 'array',
+      of: [
+        {
+          title: 'Reference',
+          type: 'reference',
+          to: [
+            {
+              type: 'pageCategory',
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
       name: 'ogImage',
       title: 'Open Graph Image',
       description:

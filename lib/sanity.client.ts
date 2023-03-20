@@ -1,16 +1,31 @@
 import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
 import {
   indexQuery,
-  type Post,
   postAndMoreStoriesQuery,
   postBySlugQuery,
   postSlugsQuery,
-  type Settings,
   settingsQuery,
   homeGalleryQuery,
-  Gallery,
+  homePageQuery,
+  homePageTitleQuery,
+  pagesBySlugQuery,
+  projectBySlugQuery,
+  projectPaths,
+  pagePaths,
+  pageCategoriesQuery,
+  pagesByPageCategorySlugQuery,
+  pageCategoryBySlugQuery,
 } from 'lib/sanity.queries'
 import { createClient } from 'next-sanity'
+import type {
+  Gallery,
+  HomePagePayload,
+  PageCategory,
+  PagePayload,
+  Post,
+  ProjectPayload,
+  Settings,
+} from 'types'
 
 /**
  * Checks if it's safe to create a client instance, as `@sanity/client` will throw an error if `projectId` is false
@@ -24,6 +39,13 @@ export async function getSettings(): Promise<Settings> {
     return (await client.fetch(settingsQuery)) || {}
   }
   return {}
+}
+
+export async function getPageCategories(): Promise<PageCategory[]> {
+  if (client) {
+    return (await client.fetch(pageCategoriesQuery)) || []
+  }
+  return []
 }
 
 export async function getAllPosts(): Promise<Post[]> {
@@ -70,4 +92,85 @@ export async function getHomeGallery(): Promise<Gallery> {
     return (await client.fetch(homeGalleryQuery)) || { images: [] }
   }
   return { images: [] }
+}
+
+/**
+ * Checks if it's safe to create a client instance, as `@sanity/client` will throw an error if `projectId` is false
+ */
+const sanityClient = (token?: string) => {
+  return projectId
+    ? createClient({ projectId, dataset, apiVersion, useCdn, token })
+    : null
+}
+
+export async function getHomePage({
+  token,
+}: {
+  token?: string
+}): Promise<HomePagePayload | undefined> {
+  return await sanityClient(token)?.fetch(homePageQuery)
+}
+
+export async function getHomePageTitle({
+  token,
+}: {
+  token?: string
+}): Promise<string | undefined> {
+  return await sanityClient(token)?.fetch(homePageTitleQuery)
+}
+
+export async function getPageBySlug({
+  slug,
+  token,
+}: {
+  slug: string
+  token?: string
+}): Promise<PagePayload | undefined> {
+  return await sanityClient(token)?.fetch(pagesBySlugQuery, { slug })
+}
+
+export async function getPageCategoryBySlug({
+  slug,
+}: {
+  slug: string
+  token?: string
+}): Promise<PageCategory | undefined> {
+  if (client) {
+    return (await client.fetch(pageCategoryBySlugQuery, { slug })) || undefined
+  }
+  return undefined
+}
+
+export async function getPagesByPageCategorySlug({
+  slug,
+}: {
+  slug: string
+  token?: string
+}): Promise<PagePayload[]> {
+  if (client) {
+    return (
+      (await client.fetch(pagesByPageCategorySlugQuery, {
+        slug,
+      })) || []
+    )
+  }
+  return []
+}
+
+export async function getProjectBySlug({
+  slug,
+  token,
+}: {
+  slug: string
+  token?: string
+}): Promise<ProjectPayload | undefined> {
+  return await sanityClient(token)?.fetch(projectBySlugQuery, { slug })
+}
+
+export async function getProjectPaths(): Promise<string[]> {
+  return await sanityClient()?.fetch(projectPaths)
+}
+
+export async function getPagePaths(): Promise<string[]> {
+  return await sanityClient()?.fetch(pagePaths)
 }

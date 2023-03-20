@@ -1,9 +1,14 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import IndexPage from 'components/IndexPage'
-import { getAllPosts, getHomeGallery, getSettings } from 'lib/sanity.client'
-import { Gallery, Post, Settings } from 'lib/sanity.queries'
+import {
+  getAllPosts,
+  getHomeGallery,
+  getPageCategories,
+  getSettings,
+} from 'lib/sanity.client'
 import { GetStaticProps } from 'next'
 import { lazy } from 'react'
+import { Gallery, PageCategory, Post, Settings } from '../types'
 
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
@@ -13,6 +18,7 @@ interface PageProps {
   preview: boolean
   token: string | null
   homeGallery: Gallery
+  pageCategories: PageCategory[]
 }
 
 interface Query {
@@ -24,7 +30,7 @@ interface PreviewData {
 }
 
 export default function Page(props: PageProps) {
-  const { posts, settings, preview, token, homeGallery } = props
+  const { posts, settings, preview, token, homeGallery, pageCategories } = props
 
   if (preview) {
     return (
@@ -36,6 +42,7 @@ export default function Page(props: PageProps) {
             posts={posts}
             settings={settings}
             homeGallery={homeGallery}
+            pageCategories={pageCategories}
           />
         }
       >
@@ -45,7 +52,12 @@ export default function Page(props: PageProps) {
   }
 
   return (
-    <IndexPage posts={posts} settings={settings} homeGallery={homeGallery} />
+    <IndexPage
+      posts={posts}
+      settings={settings}
+      homeGallery={homeGallery}
+      pageCategories={pageCategories}
+    />
   )
 }
 
@@ -56,11 +68,9 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {} } = ctx
 
-  const [settings, posts = [], homeGallery] = await Promise.all([
-    getSettings(),
-    getAllPosts(),
-    getHomeGallery(),
-  ])
+  const [settings, posts = [], homeGallery, pageCategories] = await Promise.all(
+    [getSettings(), getAllPosts(), getHomeGallery(), getPageCategories()]
+  )
 
   return {
     props: {
@@ -69,6 +79,7 @@ export const getStaticProps: GetStaticProps<
       preview,
       token: previewData.token ?? null,
       homeGallery,
+      pageCategories,
     },
   }
 }
