@@ -41,6 +41,8 @@ export interface PagePayload {
   overview?: PortableTextBlock[]
   title?: string
   slug?: string
+  coverImage?: any
+  gallery?: Gallery
 }
 
 export interface ProjectPayload {
@@ -88,9 +90,9 @@ export interface Settings {
   }
 }
 
-export interface Gallery {
+export type Gallery = {
   title?: string
-  images: any[]
+  images: Image[] | null
 }
 
 export interface PageCategory {

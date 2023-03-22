@@ -17,8 +17,19 @@ export default defineType({
       type: 'slug',
       name: 'slug',
       title: 'Slug',
+      description:
+        'This is part of the link to the page.  Warning, changing this will make your shared links on social media invalid.',
       options: {
         source: 'title',
+      },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'coverImage',
+      title: 'Cover Image',
+      type: 'image',
+      options: {
+        hotspot: true,
       },
       validation: (rule) => rule.required(),
     }),
@@ -61,6 +72,12 @@ export default defineType({
         }),
       ],
       validation: (rule) => rule.max(155).required(),
+    }),
+    defineField({
+      type: 'reference',
+      name: 'gallery',
+      title: 'Gallery',
+      to: [{ type: 'gallery' }],
     }),
     defineField({
       type: 'array',

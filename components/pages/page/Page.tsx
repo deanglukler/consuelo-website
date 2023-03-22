@@ -2,6 +2,7 @@ import { CustomPortableText } from 'components/shared/CustomPortableText'
 import ScrollUp from 'components/shared/ScrollUp'
 import { PagePayload, SettingsPayload, PageCategory } from 'types'
 import Container from '../../Container'
+import HomeGallery from '../../homepage/HomeGallery'
 import Layout from '../../Layout'
 import SiteHeader from '../../SiteHeader'
 
@@ -23,7 +24,7 @@ export function Page({
   pageCategories,
 }: PageProps) {
   // Default to an empty object to allow previews on non-existent documents
-  const { body, overview, title } = page || {}
+  const { body, overview, title, gallery } = page || {}
 
   return (
     <>
@@ -39,6 +40,8 @@ export function Page({
                 pageCategories={pageCategories}
                 level={1}
               />
+
+              {gallery && <HomeGallery images={gallery.images || []} />}
 
               {/* Body */}
               {body && (

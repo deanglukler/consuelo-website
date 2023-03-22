@@ -2,9 +2,10 @@ import { urlForImage } from 'lib/sanity.image'
 import Masonry from 'react-masonry-component'
 import { useEffect, useRef, useState } from 'react'
 import GalleryImage from './GalleryImage'
+import { Image, ImageAsset } from 'sanity'
 
 interface Props {
-  images: any[]
+  images: Image[]
 }
 
 const MD_BREAKPOINT = 350
@@ -13,8 +14,8 @@ const GUTTER_LG = 20
 const GUTTER_MD = 10
 
 export default function HomeGallery({ images }: Props) {
-  const ref = useRef(null)
-  const [boundingBoxWidth, setBoundingBoxWidth] = useState(null)
+  const ref = useRef<null | HTMLDivElement>(null)
+  const [boundingBoxWidth, setBoundingBoxWidth] = useState<null | number>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -50,11 +51,21 @@ export default function HomeGallery({ images }: Props) {
     }
   }, [])
 
+  if (images.length === 0) {
+    return null
+  }
+
   return (
     <div ref={ref}>
+      {/* @ts-ignore */}
       <Masonry>
         {images.map((source) => {
-          const { width, height } = source?.asset?.metadata?.dimensions
+          // this seems to come back as null sometimes
+          const imageAsset = source.asset as unknown as ImageAsset | null
+          if (!imageAsset) {
+            return null
+          }
+          const { width, height } = imageAsset?.metadata?.dimensions
           let setWidth = 0
           let marginLeft = 0
           let marginBottom = GUTTER_MD

@@ -13,6 +13,9 @@ import Layout from '../../components/Layout'
 import Container from '../../components/Container'
 import Link from 'next/link'
 import { PAGE_PATH } from '../../lib/sanity.links'
+import Image from 'next/image'
+import { urlForImage } from '../../lib/sanity.image'
+import { PortableText } from '@portabletext/react'
 
 interface PageProps {
   pages: PagePayload[]
@@ -34,20 +37,49 @@ interface PreviewData {
 
 export default function CategoryPage(props: PageProps) {
   const { preview, settings, pageCategories, pageCategory, pages } = props
-  const { title = '' } = settings || {}
+  const { title: siteTitle = '' } = settings || {}
   return (
     <>
       <Layout preview={preview}>
         <Container>
-          <SiteHeader title={title} pageCategories={pageCategories} level={1} />
+          <SiteHeader
+            title={siteTitle}
+            pageCategories={pageCategories}
+            currentCategory={pageCategory}
+            level={1}
+          />
           <div className="mb-14">
-            <h1>{pageCategory.categoryName}</h1>
-
-            <div>
-              {pages.map(({ title, slug }) => {
+            <div
+              style={{
+                display: 'grid',
+                gap: '3rem',
+                gridTemplateColumns: `repeat(auto-fit, minmax(min(20rem, 100%), 1fr))`,
+              }}
+            >
+              {pages.map(({ title, slug, overview, coverImage }) => {
                 return (
                   <Link key={slug} href={PAGE_PATH(pageCategory.slug, slug)}>
-                    <h3>{title}</h3>
+                    <div
+                      style={{
+                        paddingTop: '56.25%', // padding hack 16:9 ratio
+                        position: 'relative',
+                      }}
+                      className="page-preview-hover"
+                    >
+                      <Image
+                        src={urlForImage(coverImage).url()}
+                        alt={title}
+                        fill
+                        style={{
+                          objectFit: 'cover',
+                          display: 'block',
+                        }}
+                      />
+                    </div>
+                    <h3 className="text-xl font-medium sm:text-3xl">{title}</h3>
+                    <div className="text-sm">
+                      <PortableText value={overview} />
+                    </div>
                   </Link>
                 )
               })}

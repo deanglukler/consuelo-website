@@ -9,14 +9,6 @@
   opacity: 1;
 }
 
-/* menu links */
-.menu-links {
-  display: flex;
-  gap: 1rem;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
 .menu-links > * {
   transition: all 500ms;
 }
@@ -24,4 +16,13 @@
 .menu-links > *:hover {
   text-decoration: underline;
   opacity: 0.5;
+}
+
+.page-preview-hover img {
+  transition: all 500ms;
+}
+
+.page-preview-hover:hover img {
+  transform: scale(102%, 102%);
+  filter: sepia(0.4);
 }

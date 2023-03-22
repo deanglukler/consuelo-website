@@ -9,12 +9,24 @@ const postFields = groq`
   "slug": slug.current,
   "author": author->{name, picture},
 `
+const galleryFields = groq`
+  ..., 
+  images[]{
+    ..., 
+    asset->
+  }
+`
+
 const pageFields = groq`
   _id,
   body,
   overview,
   title,
   "slug": slug.current,
+  coverImage,
+  gallery->{
+    ${galleryFields}
+  }
 `
 const pageCategoryFields = groq`
   _id,
@@ -57,8 +69,7 @@ export const postBySlugQuery = groq`
 
 export const homeGalleryQuery = groq`
 *[_type == "gallery" && title == "Home Gallery"] [0] {
-  ...,
-  images[]{asset->}
+  ${galleryFields}
 }
 `
 
