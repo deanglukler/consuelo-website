@@ -43,6 +43,7 @@ export interface PagePayload {
   slug?: string
   coverImage?: any
   gallery?: Gallery
+  pageCategory?: PageCategory
 }
 
 export interface ProjectPayload {
@@ -99,4 +100,5 @@ export interface PageCategory {
   _id: string
   categoryName: string
   slug: string
+  menuPosition: number
 }

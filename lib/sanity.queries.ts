@@ -26,12 +26,14 @@ const pageFields = groq`
   coverImage,
   gallery->{
     ${galleryFields}
-  }
+  },
+  pageCategory->
 `
 const pageCategoryFields = groq`
   _id,
   categoryName,
   "slug": slug.current,
+  menuPosition
 `
 
 export const settingsQuery = groq`*[_type == "settings"][0]`

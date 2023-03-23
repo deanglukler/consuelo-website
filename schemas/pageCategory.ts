@@ -1,4 +1,4 @@
-import { defineArrayMember, defineField, defineType } from 'sanity'
+import { defineField, defineType } from 'sanity'
 import { DocumentIcon } from '@sanity/icons'
 
 export default defineType({
@@ -20,6 +20,14 @@ export default defineType({
       options: {
         source: 'categoryName',
       },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      type: 'number',
+      name: 'menuPosition',
+      title: 'Position in Menu',
+      description:
+        'Position in menu from start (lowest number) to end (highest number)',
       validation: (rule) => rule.required(),
     }),
   ],

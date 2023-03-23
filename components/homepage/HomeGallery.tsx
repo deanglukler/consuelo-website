@@ -55,8 +55,22 @@ export default function HomeGallery({ images }: Props) {
     return null
   }
 
+  let setWidth = 0
+  let marginLeft = 0
+  let marginBottom = GUTTER_MD
+  if (boundingBoxWidth > LG_BREAKPOINT) {
+    marginLeft = GUTTER_LG
+    marginBottom = GUTTER_LG
+    setWidth = boundingBoxWidth / 3 - GUTTER_LG
+  } else if (boundingBoxWidth > MD_BREAKPOINT) {
+    marginLeft = GUTTER_MD
+    setWidth = boundingBoxWidth / 2 - GUTTER_MD
+  } else {
+    setWidth = boundingBoxWidth
+  }
+
   return (
-    <div ref={ref}>
+    <div ref={ref} style={{ marginLeft: `-${marginLeft}px` }}>
       {/* @ts-ignore */}
       <Masonry>
         {images.map((source) => {
@@ -66,19 +80,6 @@ export default function HomeGallery({ images }: Props) {
             return null
           }
           const { width, height } = imageAsset?.metadata?.dimensions
-          let setWidth = 0
-          let marginLeft = 0
-          let marginBottom = GUTTER_MD
-          if (boundingBoxWidth > LG_BREAKPOINT) {
-            marginLeft = GUTTER_LG
-            marginBottom = GUTTER_LG
-            setWidth = boundingBoxWidth / 3 - GUTTER_LG
-          } else if (boundingBoxWidth > MD_BREAKPOINT) {
-            marginLeft = GUTTER_MD
-            setWidth = boundingBoxWidth / 2 - GUTTER_MD
-          } else {
-            setWidth = boundingBoxWidth
-          }
           const scaleFactor = setWidth / width
           return (
             <GalleryImage
