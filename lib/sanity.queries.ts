@@ -19,7 +19,15 @@ const galleryFields = groq`
 
 const pageFields = groq`
   _id,
-  body,
+  body[]{
+    ...,
+    _type == "gallery" => {
+      "galleryData": *[_type == "gallery" && _id == ^._ref][0]{
+        ${galleryFields}
+      }
+    }
+    
+  },
   overview,
   title,
   "slug": slug.current,

@@ -24,7 +24,7 @@ export default function SiteHeader({
       return (
         <header className="flex flex-col items-center mt-5 mb-5 md:mt-16 md:mb-10">
           <Link href="/">
-            <h1 className="mb-3 text-lg font-bold leading-tight tracking-tighter md:text-3xl">
+            <h1 className="mb-3 text-lg font-bold leading-tight tracking-tighter hover-interactive md:text-3xl">
               {title}
             </h1>
           </Link>
@@ -40,7 +40,11 @@ export default function SiteHeader({
                 }
 
                 return (
-                  <Link key={_id} href={PAGE_CATEGORY_PATH(slug)}>
+                  <Link
+                    key={_id}
+                    href={PAGE_CATEGORY_PATH(slug)}
+                    className="hover-interactive hover:underline"
+                  >
                     <p
                       className={cN({
                         ['text-lg font-bold underline']: isCurrentCategory(),

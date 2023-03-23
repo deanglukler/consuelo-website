@@ -23,6 +23,15 @@
 }
 
 .page-preview-hover:hover img {
-  transform: scale(102%, 102%);
+  transform: scale(101%);
   filter: sepia(0.4);
+}
+
+.hover-interactive {
+  transition: all 500ms;
+}
+
+.hover-interactive:hover {
+  opacity: 0.8;
+  transform: scale(1.02);
 }

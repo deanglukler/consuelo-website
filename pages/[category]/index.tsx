@@ -52,7 +52,7 @@ export default function CategoryPage(props: PageProps) {
             <div
               style={{
                 display: 'grid',
-                gap: '3rem',
+                gap: '2rem',
                 gridTemplateColumns: `repeat(auto-fit, minmax(min(20rem, 100%), 1fr))`,
               }}
             >
@@ -76,8 +76,10 @@ export default function CategoryPage(props: PageProps) {
                         }}
                       />
                     </div>
-                    <h3 className="text-xl font-medium sm:text-3xl">{title}</h3>
-                    <div className="text-sm">
+                    <h3 className="my-2 text-xl font-medium sm:text-3xl">
+                      {title}
+                    </h3>
+                    <div className="text-sm text-gray-600">
                       <PortableText value={overview} />
                     </div>
                   </Link>

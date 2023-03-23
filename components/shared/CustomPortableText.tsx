@@ -2,6 +2,9 @@ import { PortableText, PortableTextComponents } from '@portabletext/react'
 import ImageBox from 'components/shared/ImageBox'
 import { TimelineSection } from 'components/shared/TimelineSection'
 import { Image, PortableTextBlock } from 'sanity'
+import { Gallery } from '../../types'
+import HomeGallery from '../homepage/HomeGallery'
+import styles from './CustomPortableText.module.css'
 
 export function CustomPortableText({
   paragraphClasses,
@@ -54,8 +57,15 @@ export function CustomPortableText({
         const { items } = value || {}
         return <TimelineSection timelines={items} />
       },
+      gallery: ({ value }: { value: { galleryData: Gallery } }) => {
+        return <HomeGallery images={value.galleryData.images || []} />
+      },
     },
   }
 
-  return <PortableText components={components} value={value} />
+  return (
+    <div className={styles.portableText}>
+      <PortableText components={components} value={value} />
+    </div>
+  )
 }

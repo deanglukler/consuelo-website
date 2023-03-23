@@ -83,8 +83,7 @@ export default defineType({
       type: 'array',
       name: 'body',
       title: 'Body',
-      description:
-        "This is where you can write the page's content. Including custom blocks like timelines for more a more visual display of information.",
+      description: "This is where you can write the page's content.",
       of: [
         // Paragraphs
         defineArrayMember({
@@ -105,13 +104,11 @@ export default defineType({
               },
             ],
           },
-          styles: [],
+          styles: [
+            { title: 'Heading', value: 'h2' },
+            { title: 'Sub Heading', value: 'h3' },
+          ],
         }),
-        // // Custom blocks
-        // defineArrayMember({
-        //   name: 'timeline',
-        //   type: 'timeline',
-        // }),
         defineField({
           type: 'image',
           icon: ImageIcon,
@@ -126,6 +123,7 @@ export default defineType({
               title: 'caption',
             },
           },
+
           fields: [
             defineField({
               title: 'Caption',
@@ -140,6 +138,12 @@ export default defineType({
                 'Alternative text for screenreaders. Falls back on caption if not set',
             }),
           ],
+        }),
+        defineField({
+          type: 'reference',
+          name: 'gallery',
+          title: 'Gallery',
+          to: [{ type: 'gallery' }],
         }),
       ],
     }),

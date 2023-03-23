@@ -10,8 +10,6 @@ import Layout from '../../Layout'
 import SiteHeader from '../../SiteHeader'
 
 import PageHead from './PageHead'
-import ParallaxImageWithTitle from './ParallaxImageWithTitle'
-import ParallaxPage from './ParallaxPage'
 
 export interface PageProps {
   page: PagePayload | undefined
@@ -62,7 +60,7 @@ export function Page({
         )}
         <Container>
           <h1
-            className={cN('my-5', 'text-3xl', 'sm:my-10', {
+            className={cN('mt-12', 'text-3xl', 'sm:mt-12', 'font-bold', {
               ['text-center']: galleryImages,
             })}
           >
@@ -71,12 +69,7 @@ export function Page({
           {gallery && <HomeGallery images={gallery.images || []} />}
 
           {/* Body */}
-          {body && (
-            <CustomPortableText
-              paragraphClasses="max-w-3xl text-gray-600 text-xl leading-8 pb-2"
-              value={body}
-            />
-          )}
+          {body && <CustomPortableText value={body} />}
 
           {/* Workaround: scroll to top on route change */}
           <ScrollUp />
