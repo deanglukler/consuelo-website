@@ -17,7 +17,7 @@ interface PageProps {
   settings: Settings
   preview: boolean
   token: string | null
-  homeGallery: Gallery
+  homeGallery: Gallery | undefined
   pageCategories: PageCategory[]
 }
 
@@ -32,27 +32,28 @@ interface PreviewData {
 export default function Page(props: PageProps) {
   const { posts, settings, preview, token, homeGallery, pageCategories } = props
 
-  if (preview) {
-    return (
-      <PreviewSuspense
-        fallback={
-          <IndexPage
-            loading
-            preview
-            posts={posts}
-            settings={settings}
-            homeGallery={homeGallery}
-            pageCategories={pageCategories}
-          />
-        }
-      >
-        <PreviewIndexPage token={token} />
-      </PreviewSuspense>
-    )
-  }
+  // if (preview) {
+  //   return (
+  //     <PreviewSuspense
+  //       fallback={
+  //         <IndexPage
+  //           loading
+  //           preview
+  //           posts={posts}
+  //           settings={settings}
+  //           homeGallery={homeGallery}
+  //           pageCategories={pageCategories}
+  //         />
+  //       }
+  //     >
+  //       <PreviewIndexPage token={token} />
+  //     </PreviewSuspense>
+  //   )
+  // }
 
   return (
     <IndexPage
+      preview={preview}
       posts={posts}
       settings={settings}
       homeGallery={homeGallery}

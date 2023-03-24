@@ -10,7 +10,7 @@ import { Footer } from './global/Footer'
 export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
-  homeGallery: Gallery
+  homeGallery: Gallery | undefined
   posts: Post[]
   settings: Settings
   pageCategories: PageCategory[]
@@ -24,10 +24,10 @@ export default function IndexPage(props: IndexPageProps) {
     <>
       <IndexPageHead settings={settings} />
 
-      <Layout preview={preview} loading={loading}>
+      <Layout preview={Boolean(preview)} loading={loading}>
         <Container>
           <SiteHeader title={title} pageCategories={pageCategories} level={1} />
-          <HomeGallery images={homeGallery.images} />
+          <HomeGallery images={homeGallery?.images || []} />
         </Container>
       </Layout>
       <Footer />

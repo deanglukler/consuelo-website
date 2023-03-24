@@ -15,7 +15,7 @@ export default function SiteHeader({
   level,
 }: {
   title: string
-  pageCategories: PageCategory[]
+  pageCategories?: PageCategory[]
   currentCategory?: PageCategory
   level: 1 | 2
 }) {
@@ -28,35 +28,37 @@ export default function SiteHeader({
               {title}
             </h1>
           </Link>
-          <ul className="flex flex-wrap items-center justify-around gap-2 sm:gap-4">
-            {pageCategories
-              .sort(sortByMenuPosition)
-              .map(({ categoryName, _id, slug }) => {
-                function isCurrentCategory() {
-                  if (currentCategory) {
-                    return currentCategory.categoryName === categoryName
+          {pageCategories && (
+            <ul className="flex flex-wrap items-center justify-around gap-2 sm:gap-4">
+              {pageCategories
+                .sort(sortByMenuPosition)
+                .map(({ categoryName, _id, slug }) => {
+                  function isCurrentCategory() {
+                    if (currentCategory) {
+                      return currentCategory.categoryName === categoryName
+                    }
+                    return false
                   }
-                  return false
-                }
 
-                return (
-                  <Link
-                    key={_id}
-                    href={PAGE_CATEGORY_PATH(slug)}
-                    className="hover-interactive hover:underline"
-                  >
-                    <p
-                      className={cN({
-                        ['text-lg font-bold underline']: isCurrentCategory(),
-                      })}
+                  return (
+                    <Link
+                      key={_id}
+                      href={PAGE_CATEGORY_PATH(slug)}
+                      className="hover-interactive hover:underline"
                     >
-                      {categoryName}
-                    </p>
-                  </Link>
-                )
-              })}
-            <Link href="/contact">Contact</Link>
-          </ul>
+                      <p
+                        className={cN({
+                          ['text-lg font-bold underline']: isCurrentCategory(),
+                        })}
+                      >
+                        {categoryName}
+                      </p>
+                    </Link>
+                  )
+                })}
+              <Link href="/contact">Contact</Link>
+            </ul>
+          )}
         </header>
       )
 
