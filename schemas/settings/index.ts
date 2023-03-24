@@ -22,6 +22,16 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'profileImage',
+      title: 'Profile Image',
+      type: 'image',
+      description: 'Photo used on Contact page',
+      options: {
+        hotspot: true,
+      },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'description',
       description: 'Used the <meta> description tag for SEO',
       title: 'Description',
@@ -53,23 +63,6 @@ export default defineType({
         }),
       ],
       validation: (rule) => rule.max(155).required(),
-    }),
-    defineField({
-      name: 'menuItems',
-      title: 'Menu Item list',
-      description: 'Links displayed on the header of your site.',
-      type: 'array',
-      of: [
-        {
-          title: 'Reference',
-          type: 'reference',
-          to: [
-            {
-              type: 'pageCategory',
-            },
-          ],
-        },
-      ],
     }),
     defineField({
       name: 'ogImage',

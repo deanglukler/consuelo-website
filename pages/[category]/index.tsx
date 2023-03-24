@@ -16,6 +16,7 @@ import { PAGE_PATH } from '../../lib/sanity.links'
 import Image from 'next/image'
 import { urlForImage } from '../../lib/sanity.image'
 import { PortableText } from '@portabletext/react'
+import { Footer } from '../../components/global/Footer'
 
 interface PageProps {
   pages: PagePayload[]
@@ -90,9 +91,9 @@ export default function CategoryPage(props: PageProps) {
             {/* Workaround: scroll to top on route change */}
             <ScrollUp />
           </div>
-          <div className="absolute left-0 w-screen border-t" />
         </Container>
       </Layout>
+      <Footer />
     </>
   )
 }

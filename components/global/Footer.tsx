@@ -1,15 +1,12 @@
-import { CustomPortableText } from 'components/shared/CustomPortableText'
-import { PortableTextBlock } from 'sanity'
-
-export function Footer({ footer }: { footer: PortableTextBlock[] }) {
+export function Footer() {
   return (
-    <footer className="bottom-0 w-full bg-white py-12 text-center md:py-20">
-      {footer && (
-        <CustomPortableText
-          paragraphClasses="text-md md:text-xl"
-          value={footer}
-        />
-      )}
-    </footer>
+    <>
+      <div className="absolute left-0 w-screen border-t" />
+      <footer className="bottom-0 w-full py-8 text-center text-gray-400 bg-white md:py-16">
+        <p className="text-xs">
+          Copyright © 2023 databoi.io. All rights reserved.
+        </p>
+      </footer>
+    </>
   )
 }

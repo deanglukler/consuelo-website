@@ -11,7 +11,7 @@ export default function Layout({
 }) {
   return (
     <>
-      <div className="min-h-screen">
+      <div className="min-h-screen pb-12">
         <AlertBanner preview={preview} loading={loading} />
         <main>{children}</main>
       </div>

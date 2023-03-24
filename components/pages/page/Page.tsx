@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { PagePayload, PageCategory, Settings } from 'types'
 import { urlForImage } from '../../../lib/sanity.image'
 import Container from '../../Container'
+import { Footer } from '../../global/Footer'
 import HomeGallery from '../../homepage/HomeGallery'
 import Layout from '../../Layout'
 import SiteHeader from '../../SiteHeader'
@@ -73,9 +74,9 @@ export function Page({
 
           {/* Workaround: scroll to top on route change */}
           <ScrollUp />
-          <div className="absolute left-0 w-screen border-t" />
         </Container>
       </Layout>
+      <Footer />
     </>
   )
 }

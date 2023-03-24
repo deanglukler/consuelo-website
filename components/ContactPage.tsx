@@ -6,8 +6,10 @@ import * as demo from 'lib/demo.data'
 import { Gallery, PageCategory, Post, Settings } from '../types'
 import HomeGallery from './homepage/HomeGallery'
 import { Footer } from './global/Footer'
+import Image from 'next/image'
+import { urlForImage } from '../lib/sanity.image'
 
-export interface IndexPageProps {
+export interface ContactPageProps {
   preview?: boolean
   loading?: boolean
   homeGallery: Gallery
@@ -16,9 +18,9 @@ export interface IndexPageProps {
   pageCategories: PageCategory[]
 }
 
-export default function IndexPage(props: IndexPageProps) {
+export default function ContactPage(props: ContactPageProps) {
   const { preview, loading, settings, homeGallery, pageCategories } = props
-  const { title = demo.title } = settings || {}
+  const { title = demo.title, profileImage } = settings || {}
 
   return (
     <>
@@ -27,7 +29,13 @@ export default function IndexPage(props: IndexPageProps) {
       <Layout preview={preview} loading={loading}>
         <Container>
           <SiteHeader title={title} pageCategories={pageCategories} level={1} />
-          <HomeGallery images={homeGallery.images} />
+          <div className="relative h-[200px] w-[200px]">
+            <Image
+              src={urlForImage(profileImage).url()}
+              fill
+              alt="photographers profile image"
+            />
+          </div>
         </Container>
       </Layout>
       <Footer />

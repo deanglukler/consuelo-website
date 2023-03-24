@@ -44,7 +44,13 @@ const pageCategoryFields = groq`
   menuPosition
 `
 
-export const settingsQuery = groq`*[_type == "settings"][0]`
+export const settingsQuery = groq`*[_type == "settings"][0]{
+  ...,
+  profileImage{
+    ...,
+    asset->
+  }
+}`
 
 export const pageCategoriesQuery = groq`*[_type == 'pageCategory'] [] {
   ${pageCategoryFields} 
