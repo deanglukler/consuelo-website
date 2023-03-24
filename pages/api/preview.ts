@@ -18,7 +18,7 @@ export const config: PageConfig = { runtime: 'nodejs' }
 function redirectToPreview(
   res: NextApiResponse<string | void>,
   previewData: { token?: string },
-  Location: '/' | `/posts/${string}`
+  Location: string
 ): void {
   // Enable Preview Mode by setting the cookies
   res.setPreviewData(previewData)
@@ -73,16 +73,17 @@ export default async function preview(
     token:
       process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_WRITE_TOKEN,
   })
-  const post = await client.fetch(postBySlugQuery, {
-    slug: req.query.slug,
-  })
+  // const post = await client.fetch(postBySlugQuery, {
+  //   slug: req.query.slug,
+  // })
 
-  // If the slug doesn't exist prevent preview mode from being enabled
-  if (!post) {
-    return res.status(401).send('Invalid slug')
-  }
+  // // If the slug doesn't exist prevent preview mode from being enabled
+  // if (!post) {
+  //   return res.status(401).send('Invalid slug')
+  // }
 
   // Redirect to the path from the fetched post
   // We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
-  redirectToPreview(res, previewData, `/posts/${post.slug}`)
+  // redirectToPreview(res, previewData, `/posts/${post.slug}`)
+  redirectToPreview(res, previewData, req.query.slug as string)
 }

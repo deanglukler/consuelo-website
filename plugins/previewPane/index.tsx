@@ -7,9 +7,18 @@
 import { DefaultDocumentNodeResolver } from 'sanity/desk'
 import authorType from 'schemas/author'
 import postType from 'schemas/post'
+import pageType from '../../schemas/page'
 
 import AuthorAvatarPreviewPane from './AuthorAvatarPreviewPane'
 import PostPreviewPane from './PostPreviewPane'
+import { getPageCategories } from 'lib/sanity.client'
+import { PageCategory } from '../../types'
+import { PAGE_PATH } from '../../lib/sanity.links'
+
+let categories: null | PageCategory[] = null
+getPageCategories()
+  .then((c) => (categories = c))
+  .catch(console.error)
 
 export const previewDocumentNode = ({
   apiVersion,
@@ -20,6 +29,40 @@ export const previewDocumentNode = ({
 }): DefaultDocumentNodeResolver => {
   return (S, { schemaType }) => {
     switch (schemaType) {
+      case pageType.name:
+        return S.document().views([
+          S.view.form(),
+          S.view
+            .component(({ document }) => {
+              if (document.displayed.pageCategory) {
+                const categoryRef = document.displayed.pageCategory._ref
+                const matchingCategory = categories?.find(
+                  (category) => category._id === categoryRef
+                )
+
+                if (matchingCategory) {
+                  return (
+                    <PostPreviewPane
+                      slug={PAGE_PATH(
+                        matchingCategory.slug,
+                        document.displayed.slug?.current
+                      )}
+                      apiVersion={apiVersion}
+                      previewSecretId={previewSecretId}
+                    />
+                  )
+                } else {
+                  console.log('No matching category found')
+                  return null
+                }
+              } else {
+                console.log('Document has no pageCategory property')
+                return null
+              }
+            })
+            .title('Preview'),
+        ])
+
       case authorType.name:
         return S.document().views([
           S.view.form(),

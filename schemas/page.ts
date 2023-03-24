@@ -151,11 +151,12 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
+      pageCategoryTitle: 'pageCategory.title',
     },
-    prepare({ title }) {
+    prepare({ title, pageCategoryTitle }) {
       return {
-        subtitle: 'Page',
         title,
+        subtitle: `Page - ${pageCategoryTitle}`,
       }
     },
   },
