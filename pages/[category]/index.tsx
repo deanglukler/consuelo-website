@@ -1,22 +1,20 @@
 import { GetServerSideProps } from 'next'
 import {
-  getHomePageTitle,
   getPageCategoryBySlug,
   getPagesByPageCategorySlug,
-  getSettings,
-  getPageCategories,
 } from 'lib/sanity.client'
 import { PageCategory, PagePayload, Settings } from 'types'
-import SiteHeader from 'components/SiteHeader'
+import SiteHeader from 'components/shared/SiteHeader'
 import ScrollUp from 'components/shared/ScrollUp'
-import Layout from '../../components/Layout'
-import Container from '../../components/Container'
+import Layout from '../../components/shared/Layout'
+import Container from '../../components/shared/Container'
 import Link from 'next/link'
 import { PAGE_PATH } from '../../lib/sanity.links'
 import Image from 'next/image'
 import { urlForImage } from '../../lib/sanity.image'
 import { PortableText } from '@portabletext/react'
-import { Footer } from '../../components/global/Footer'
+import { Footer } from '../../components/shared/Footer'
+import { getCommonPageProps } from '../../lib/getCommonPageProps'
 
 interface PageProps {
   pages: PagePayload[]
@@ -105,16 +103,11 @@ export const getServerSideProps: GetServerSideProps<
 > = async (ctx) => {
   const { preview = false, previewData = {}, params = {} } = ctx
 
-  const token = previewData.token
-
-  const [settings, pageCategories, pageCategory, pages, homePageTitle] =
-    await Promise.all([
-      getSettings(),
-      getPageCategories(),
-      getPageCategoryBySlug({ slug: params.category }),
-      getPagesByPageCategorySlug({ slug: params.category }),
-      getHomePageTitle({ token }),
-    ])
+  const { settings, pageCategories } = await getCommonPageProps(ctx)
+  const [pageCategory, pages] = await Promise.all([
+    getPageCategoryBySlug({ slug: params.category }),
+    getPagesByPageCategorySlug({ slug: params.category }),
+  ])
 
   if (!pageCategory) {
     return {
@@ -128,7 +121,6 @@ export const getServerSideProps: GetServerSideProps<
       pageCategory,
       pages,
       settings,
-      homePageTitle,
       preview,
       token: previewData.token ?? null,
     },

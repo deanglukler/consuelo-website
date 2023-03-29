@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import FadeInOut from '../FadeInOut'
+import FadeInOut from '../../shared/FadeInOut'
 
 interface Props {
   src: string

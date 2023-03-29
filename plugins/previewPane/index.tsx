@@ -5,18 +5,15 @@
 // https://www.sanity.io/docs/structure-builder-reference
 
 import { DefaultDocumentNodeResolver } from 'sanity/desk'
-import authorType from 'schemas/author'
-import postType from 'schemas/post'
 import pageType from '../../schemas/page'
 
-import AuthorAvatarPreviewPane from './AuthorAvatarPreviewPane'
 import PostPreviewPane from './PostPreviewPane'
 import { getPageCategories } from 'lib/sanity.client'
 import { PageCategory } from '../../types'
 import { PAGE_PATH } from '../../lib/sanity.links'
 
 let categories: null | PageCategory[] = null
-getPageCategories()
+getPageCategories({})
   .then((c) => (categories = c))
   .catch(console.error)
 
@@ -60,33 +57,6 @@ export const previewDocumentNode = ({
                 return null
               }
             })
-            .title('Preview'),
-        ])
-
-      case authorType.name:
-        return S.document().views([
-          S.view.form(),
-          S.view
-            .component(({ document }) => (
-              <AuthorAvatarPreviewPane
-                name={document.displayed.name as any}
-                picture={document.displayed.picture as any}
-              />
-            ))
-            .title('Preview'),
-        ])
-
-      case postType.name:
-        return S.document().views([
-          S.view.form(),
-          S.view
-            .component(({ document }) => (
-              <PostPreviewPane
-                slug={document.displayed.slug?.current}
-                apiVersion={apiVersion}
-                previewSecretId={previewSecretId}
-              />
-            ))
             .title('Preview'),
         ])
 

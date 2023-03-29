@@ -3,7 +3,7 @@ import ImageBox from 'components/shared/ImageBox'
 import { TimelineSection } from 'components/shared/TimelineSection'
 import { Image, PortableTextBlock } from 'sanity'
 import { Gallery } from '../../types'
-import HomeGallery from '../homepage/HomeGallery'
+import HomeGallery from '../pages/homepage/HomeGallery'
 import styles from './CustomPortableText.module.css'
 
 export function CustomPortableText({

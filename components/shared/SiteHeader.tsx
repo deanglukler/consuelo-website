@@ -1,8 +1,7 @@
-import { PortableText } from '@portabletext/react'
 import cN from 'classnames'
 import Link from 'next/link'
-import { PAGE_CATEGORY_PATH } from '../lib/sanity.links'
-import { PageCategory } from '../types'
+import { PAGE_CATEGORY_PATH } from '../../lib/sanity.links'
+import { PageCategory } from '../../types'
 
 function sortByMenuPosition(a: PageCategory, b: PageCategory) {
   return a.menuPosition - b.menuPosition
@@ -22,9 +21,9 @@ export default function SiteHeader({
   switch (level) {
     case 1:
       return (
-        <header className="flex flex-col items-center mt-5 mb-5 md:mt-16 md:mb-10">
+        <header className="mt-5 mb-5 flex flex-col items-center md:mt-16 md:mb-10">
           <Link href="/">
-            <h1 className="mb-3 text-lg font-bold leading-tight tracking-tighter hover-interactive md:text-3xl">
+            <h1 className="hover-interactive mb-3 text-lg font-bold leading-tight tracking-tighter md:text-3xl">
               {title}
             </h1>
           </Link>

@@ -1,27 +1,20 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import { Page } from 'components/pages/page/Page'
-import { PreviewWrapper } from 'components/preview/PreviewWrapper'
-import {
-  getHomePageTitle,
-  getPageBySlug,
-  getPagePaths,
-  getSettings,
-  getPageCategories,
-} from 'lib/sanity.client'
-import { resolveHref } from 'lib/sanity.links'
-import { GetServerSideProps, GetStaticProps } from 'next'
+import { getPageBySlug } from 'lib/sanity.client'
+import { GetServerSideProps } from 'next'
 import { lazy } from 'react'
 import { PagePayload, Settings, PageCategory } from 'types'
+import { PreviewWrapper } from '../../components/preview/PreviewWrapper'
+import { getCommonPageProps } from '../../lib/getCommonPageProps'
 
 const PagePreview = lazy(() => import('components/pages/page/PagePreview'))
 
 interface PageProps {
   page?: PagePayload
   settings?: Settings
-  homePageTitle?: string
   preview: boolean
   token: string | null
-  pageCategories: PageCategory[]
+  pageCategories?: PageCategory[]
 }
 
 interface Query {
@@ -33,36 +26,34 @@ interface PreviewData {
 }
 
 export default function ProjectSlugRoute(props: PageProps) {
-  const { homePageTitle, settings, page, preview, token, pageCategories } =
-    props
+  const { settings, page, preview, token, pageCategories } = props
 
-  // if (preview) {
-  //   return (
-  //     <PreviewSuspense
-  //       fallback={
-  //         <PreviewWrapper>
-  //           <Page
-  //             homePageTitle={homePageTitle}
-  //             page={page}
-  //             settings={settings}
-  //             preview={preview}
-  //           />
-  //         </PreviewWrapper>
-  //       }
-  //     >
-  //       <PagePreview
-  //         token={token}
-  //         page={page}
-  //         settings={settings}
-  //         homePageTitle={homePageTitle}
-  //       />
-  //     </PreviewSuspense>
-  //   )
-  // }
+  if (preview) {
+    return (
+      <PreviewSuspense
+        fallback={
+          <PreviewWrapper>
+            <Page
+              pageCategories={pageCategories}
+              page={page}
+              settings={settings}
+              preview={preview}
+            />
+          </PreviewWrapper>
+        }
+      >
+        <PagePreview
+          token={token}
+          page={page}
+          settings={settings}
+          pageCategories={pageCategories}
+        />
+      </PreviewSuspense>
+    )
+  }
 
   return (
     <Page
-      homePageTitle={homePageTitle}
       page={page}
       settings={settings}
       preview={preview}
@@ -80,11 +71,10 @@ export const getServerSideProps: GetServerSideProps<
 
   const token = previewData.token
 
-  const [settings, pageCategories, page, homePageTitle] = await Promise.all([
-    getSettings(),
-    getPageCategories(),
+  const { settings, pageCategories } = await getCommonPageProps(ctx)
+
+  const [page] = await Promise.all([
     getPageBySlug({ token, slug: params.page }),
-    getHomePageTitle({ token }),
   ])
 
   if (!page) {
@@ -98,7 +88,6 @@ export const getServerSideProps: GetServerSideProps<
       page,
       pageCategories,
       settings,
-      homePageTitle,
       preview,
       token: previewData.token ?? null,
     },

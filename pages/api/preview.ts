@@ -5,7 +5,6 @@ import {
   projectId,
   useCdn,
 } from 'lib/sanity.api'
-import { postBySlugQuery } from 'lib/sanity.queries'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { PageConfig } from 'next/types'
 import { createClient } from 'next-sanity'
@@ -66,13 +65,13 @@ export default async function preview(
     return redirectToPreview(res, previewData, '/')
   }
 
-  // Check if the post with the given `slug` exists
-  const client = _client.withConfig({
-    // Fallback to using the WRITE token until https://www.sanity.io/docs/vercel-integration starts shipping a READ token.
-    // As this client only exists on the server and the token is never shared with the browser, we don't risk escalating permissions to untrustworthy users
-    token:
-      process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_WRITE_TOKEN,
-  })
+  // // Check if the post with the given `slug` exists
+  // const client = _client.withConfig({
+  //   // Fallback to using the WRITE token until https://www.sanity.io/docs/vercel-integration starts shipping a READ token.
+  //   // As this client only exists on the server and the token is never shared with the browser, we don't risk escalating permissions to untrustworthy users
+  //   token:
+  //     process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_WRITE_TOKEN,
+  // })
   // const post = await client.fetch(postBySlugQuery, {
   //   slug: req.query.slug,
   // })

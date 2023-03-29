@@ -4,29 +4,22 @@ import ScrollUp from 'components/shared/ScrollUp'
 import Image from 'next/image'
 import { PagePayload, PageCategory, Settings } from 'types'
 import { urlForImage } from '../../../lib/sanity.image'
-import Container from '../../Container'
-import { Footer } from '../../global/Footer'
-import HomeGallery from '../../homepage/HomeGallery'
-import Layout from '../../Layout'
-import SiteHeader from '../../SiteHeader'
+import Container from '../../shared/Container'
+import { Footer } from '../../shared/Footer'
+import HomeGallery from '../homepage/HomeGallery'
+import Layout from '../../shared/Layout'
+import SiteHeader from '../../shared/SiteHeader'
 
 import PageHead from './PageHead'
 
 export interface PageProps {
   page: PagePayload | undefined
   settings: Settings | undefined
-  homePageTitle: string | undefined
   preview?: boolean
-  pageCategories: PageCategory[]
+  pageCategories?: PageCategory[]
 }
 
-export function Page({
-  page,
-  settings,
-  homePageTitle,
-  preview,
-  pageCategories,
-}: PageProps) {
+export function Page({ page, settings, preview, pageCategories }: PageProps) {
   // Default to an empty object to allow previews on non-existent documents
   const { title, body, overview, coverImage, gallery, pageCategory } =
     page || {}
@@ -36,7 +29,7 @@ export function Page({
 
   return (
     <>
-      <PageHead page={page} settings={settings} title={homePageTitle} />
+      <PageHead page={page} settings={settings} title={title} />
 
       <Layout preview={preview}>
         <Container>

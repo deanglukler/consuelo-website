@@ -1,11 +1,11 @@
 import { toPlainText } from '@portabletext/react'
-import BlogMeta from 'components/BlogMeta'
+import BlogMeta from 'components/pages/homepage/IndexPageMeta'
 import * as demo from 'lib/demo.data'
 import Head from 'next/head'
-import { Settings } from '../types'
+import { Settings } from '../../../types'
 
 export interface IndexPageHeadProps {
-  settings: Settings
+  settings?: Settings
 }
 
 export default function IndexPageHead({ settings }: IndexPageHeadProps) {
@@ -13,7 +13,7 @@ export default function IndexPageHead({ settings }: IndexPageHeadProps) {
     title = demo.title,
     description = demo.description,
     ogImage = {},
-  } = settings
+  } = settings || {}
   const ogImageTitle = ogImage?.title || demo.ogImageTitle
 
   return (

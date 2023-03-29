@@ -10,19 +10,19 @@ import { settingsPlugin, settingsStructure } from 'plugins/settings'
 import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
-import postType from 'schemas/post'
 import settingsType from 'schemas/settings'
 import galleryType from 'schemas/gallery'
 import pageType from 'schemas/page'
 import pageCategoryType from './schemas/pageCategory'
 
-const title =
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Next.js Blog with Sanity.io'
+const title = process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Blog Studio'
+
+export const PREVIEWABLE_DOCUMENT_TYPES: string[] = [pageType.name]
 
 export default defineConfig({
   basePath: '/studio',
-  projectId,
-  dataset,
+  projectId: projectId || '',
+  dataset: dataset || '',
   title,
   schema: {
     // If you want more content types, you can add them to this array
@@ -40,7 +40,7 @@ export default defineConfig({
     productionUrl({
       apiVersion,
       previewSecretId,
-      types: [postType.name, settingsType.name],
+      types: PREVIEWABLE_DOCUMENT_TYPES,
     }),
     // Add an image asset source for Unsplash
     unsplashImageAsset(),

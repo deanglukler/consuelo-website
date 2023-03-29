@@ -8,7 +8,7 @@ export default function PagePreview({
   token,
   page,
   settings,
-  homePageTitle,
+  pageCategories,
 }: {
   token: null | string
 } & PageProps) {
@@ -18,9 +18,9 @@ export default function PagePreview({
 
   return (
     <Page
+      pageCategories={pageCategories}
       page={pagePreview}
       settings={settings}
-      homePageTitle={homePageTitle}
       preview={true}
     />
   )

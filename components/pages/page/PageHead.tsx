@@ -1,5 +1,5 @@
 import { toPlainText } from '@portabletext/react'
-import { SiteMeta } from 'components/global/SiteMeta'
+import { SiteMeta } from 'components/shared/SiteMeta'
 import { PagePayload, SettingsPayload } from 'types'
 
 export interface PageHeadProps {

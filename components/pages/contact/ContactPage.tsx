@@ -1,25 +1,22 @@
-import Container from 'components/Container'
-import SiteHeader from 'components/SiteHeader'
-import Layout from 'components/Layout'
-import IndexPageHead from 'components/IndexPageHead'
+import Container from 'components/shared/Container'
+import SiteHeader from 'components/shared/SiteHeader'
+import Layout from 'components/shared/Layout'
+import IndexPageHead from 'components/pages/homepage/IndexPageHead'
 import * as demo from 'lib/demo.data'
-import { Gallery, PageCategory, Post, Settings } from '../types'
-import HomeGallery from './homepage/HomeGallery'
-import { Footer } from './global/Footer'
+import { PageCategory, Settings } from '../../../types'
+import { Footer } from '../../shared/Footer'
 import Image from 'next/image'
-import { urlForImage } from '../lib/sanity.image'
+import { urlForImage } from '../../../lib/sanity.image'
 
 export interface ContactPageProps {
   preview?: boolean
   loading?: boolean
-  homeGallery: Gallery
-  posts: Post[]
-  settings: Settings
-  pageCategories: PageCategory[]
+  settings?: Settings
+  pageCategories?: PageCategory[]
 }
 
 export default function ContactPage(props: ContactPageProps) {
-  const { preview, loading, settings, homeGallery, pageCategories } = props
+  const { preview, loading, settings, pageCategories } = props
   const { title = demo.title, profileImage } = settings || {}
 
   return (
