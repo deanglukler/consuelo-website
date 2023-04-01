@@ -12,7 +12,7 @@ interface Props
   style?: CSSProperties
 }
 
-const TIME = 1000
+const TIME = 700
 
 const FadeInOut = ({ visible, children, style, ...rest }: Props) => {
   const [show, setShow] = useState(false)

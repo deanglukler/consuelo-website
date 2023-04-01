@@ -4,7 +4,7 @@ import Layout from 'components/shared/Layout'
 import IndexPageHead from 'components/pages/homepage/IndexPageHead'
 import * as demo from 'lib/demo.data'
 import { Gallery, PageCategory, Post, Settings } from '../../../types'
-import HomeGallery from './HomeGallery'
+import MasonryGallery from '../../shared/MasonryGallery'
 import { Footer } from '../../shared/Footer'
 
 export interface IndexPageProps {
@@ -26,7 +26,7 @@ export default function IndexPage(props: IndexPageProps) {
       <Layout preview={Boolean(preview)} loading={loading}>
         <Container>
           <SiteHeader title={title} pageCategories={pageCategories} level={1} />
-          <HomeGallery images={homeGallery?.images || []} />
+          <MasonryGallery images={homeGallery?.images || []} />
         </Container>
       </Layout>
       <Footer />

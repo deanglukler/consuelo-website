@@ -6,7 +6,7 @@ import { PagePayload, PageCategory, Settings } from 'types'
 import { urlForImage } from '../../../lib/sanity.image'
 import Container from '../../shared/Container'
 import { Footer } from '../../shared/Footer'
-import HomeGallery from '../homepage/HomeGallery'
+import MasonryGallery from '../../shared/MasonryGallery'
 import Layout from '../../shared/Layout'
 import SiteHeader from '../../shared/SiteHeader'
 
@@ -21,8 +21,7 @@ export interface PageProps {
 
 export function Page({ page, settings, preview, pageCategories }: PageProps) {
   // Default to an empty object to allow previews on non-existent documents
-  const { title, body, overview, coverImage, gallery, pageCategory } =
-    page || {}
+  const { title, body, coverImage, gallery, pageCategory } = page || {}
   const { title: siteTitle = '' } = settings || {}
 
   const galleryImages = gallery?.images
@@ -55,12 +54,12 @@ export function Page({ page, settings, preview, pageCategories }: PageProps) {
         <Container>
           <h1
             className={cN('mt-12', 'text-3xl', 'sm:mt-12', 'font-bold', {
-              ['text-center']: galleryImages,
+              ['mb-12 text-center']: galleryImages,
             })}
           >
             {title}
           </h1>
-          {gallery && <HomeGallery images={gallery.images || []} />}
+          {galleryImages && <MasonryGallery images={galleryImages || []} />}
 
           {/* Body */}
           {body && <CustomPortableText value={body} />}

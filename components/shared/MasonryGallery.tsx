@@ -1,39 +1,31 @@
 import { urlForImage } from 'lib/sanity.image'
 import Masonry from 'react-masonry-component'
 import { useEffect, useRef, useState } from 'react'
-import GalleryImage from './GalleryImage'
-import { Image, ImageAsset } from 'sanity'
+import { Image as SanityImage, ImageAsset } from 'sanity'
+import { useIntersectionObserverTransition } from './hooks'
+import Image from 'next/image'
+import {
+  FullPageGalleryView,
+  useFullPageGalleryView,
+} from './FullPageGalleryView'
 
 interface Props {
-  images: Image[]
+  images: SanityImage[]
 }
 
 const MD_BREAKPOINT = 350
 const LG_BREAKPOINT = 700
-const GUTTER_LG = 20
-const GUTTER_MD = 10
+const GUTTER_LG = 10
+const GUTTER_MD = 8
 
-export default function HomeGallery({ images }: Props) {
+export default function MasonryGallery({ images }: Props) {
   const ref = useRef<null | HTMLDivElement>(null)
-  const [boundingBoxWidth, setBoundingBoxWidth] = useState<null | number>(null)
+  const [boundingBoxWidth, setBoundingBoxWidth] = useState<number>(0)
+  const fullPageGalleryViewProps = useFullPageGalleryView({
+    images: images.map((s) => urlForImage(s).url()),
+  })
 
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('showAnim')
-        } else {
-          entry.target.classList.remove('showAnim')
-        }
-      })
-    })
-    const hiddenElements = document.querySelectorAll('.hiddenAnim')
-    hiddenElements.forEach((el) => observer.observe(el))
-
-    return () => {
-      hiddenElements.forEach((el) => observer.unobserve(el))
-    }
-  }, [])
+  useIntersectionObserverTransition()
 
   useEffect(() => {
     // Get the bounding box width on mount and on screen resize
@@ -55,19 +47,7 @@ export default function HomeGallery({ images }: Props) {
     return null
   }
 
-  let setWidth = 0
-  let marginLeft = 0
-  let marginBottom = GUTTER_MD
-  if (boundingBoxWidth > LG_BREAKPOINT) {
-    marginLeft = GUTTER_LG
-    marginBottom = GUTTER_LG
-    setWidth = boundingBoxWidth / 3 - GUTTER_LG
-  } else if (boundingBoxWidth > MD_BREAKPOINT) {
-    marginLeft = GUTTER_MD
-    setWidth = boundingBoxWidth / 2 - GUTTER_MD
-  } else {
-    setWidth = boundingBoxWidth
-  }
+  let { marginLeft, setWidth, marginBottom } = imageDimensions(boundingBoxWidth)
 
   return (
     <div ref={ref} style={{ marginLeft: `-${marginLeft}px` }}>
@@ -77,27 +57,40 @@ export default function HomeGallery({ images }: Props) {
           // this seems to come back as null sometimes
           const imageAsset = source.asset as unknown as ImageAsset | null
           if (!imageAsset) {
-            return null
+            return console.warn(
+              'Cant render a image as source.asset is undefined'
+            )
           }
           const { width, height } = imageAsset?.metadata?.dimensions
           const scaleFactor = setWidth / width
           return (
-            <GalleryImage
-              key={source.asset._id}
-              alt={`Beautiful Photo`}
-              src={urlForImage(source).url()}
-              thumbnailClassName={`hiddenAnim`}
-              thumbnailStyle={{
+            <div
+              key={imageAsset._id}
+              style={{
                 width: setWidth,
                 height: height * scaleFactor,
                 marginLeft,
                 marginBottom,
                 boxSizing: 'border-box',
               }}
-            />
+              className={`hiddenAnim`}
+              onClick={() =>
+                fullPageGalleryViewProps.setCurrentImageSource(
+                  urlForImage(source).url()
+                )
+              }
+            >
+              <Image
+                src={urlForImage(source).url()}
+                alt={'Beautiful Photo'}
+                fill
+                style={{ objectFit: 'contain' }}
+              />
+            </div>
           )
         })}
       </Masonry>
+      <FullPageGalleryView {...fullPageGalleryViewProps} />
     </div>
   )
 }
@@ -184,4 +177,21 @@ const image_example = {
     uploadId: 'tzgyX8qg2SbdKqUyA4axuybnVx9Tq8hX',
     url: 'https://cdn.sanity.io/images/w3na4b2y/production/16647a8409bd498b0eabf85e6173fc30055321d6-3091x2048.jpg',
   },
+}
+
+function imageDimensions(boundingBoxWidth: number) {
+  let setWidth = 0
+  let marginLeft = 0
+  let marginBottom = GUTTER_MD
+  if (boundingBoxWidth > LG_BREAKPOINT) {
+    marginLeft = GUTTER_LG
+    marginBottom = GUTTER_LG
+    setWidth = boundingBoxWidth / 3 - GUTTER_LG
+  } else if (boundingBoxWidth > MD_BREAKPOINT) {
+    marginLeft = GUTTER_MD
+    setWidth = boundingBoxWidth / 2 - GUTTER_MD
+  } else {
+    setWidth = boundingBoxWidth
+  }
+  return { marginLeft, setWidth, marginBottom }
 }
