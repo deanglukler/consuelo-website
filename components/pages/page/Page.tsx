@@ -53,7 +53,7 @@ export function Page({ page, settings, preview, pageCategories }: PageProps) {
         )}
         <Container>
           <h1
-            className={cN('mt-12', 'text-3xl', 'sm:mt-12', 'font-bold', {
+            className={cN('mt-12', 'text-3xl', 'sm:mt-12', 'font-regular', {
               ['mb-12 text-center']: galleryImages,
             })}
           >

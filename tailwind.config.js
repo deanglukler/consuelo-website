@@ -53,6 +53,12 @@ module.exports = {
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
     },
+    // Overriding fontFamily to use @next/font loaded families
+    fontFamily: {
+      mono: 'var(--font-mono)',
+      sans: 'var(--font-sans)',
+      serif: 'var(--font-serif)',
+    },
   },
   plugins: [],
 }

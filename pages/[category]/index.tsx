@@ -67,7 +67,7 @@ export default function CategoryPage(props: PageProps) {
                   }}
                 />
               </div>
-              <h3 className="my-2 text-xl font-medium sm:text-3xl">{title}</h3>
+              <h3 className="font-regular my-2 text-xl sm:text-3xl">{title}</h3>
               {overview && (
                 <div className="text-sm text-gray-600">
                   <PortableText value={overview} />

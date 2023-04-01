@@ -35,7 +35,7 @@ export function TimelineItem({
       </div>
       <div className="flex-initial pl-4">
         {/* Title */}
-        <div className="font-bold text-black">{title}</div>
+        <div className="font-regular text-black">{title}</div>
         {/* Tags */}
         <div className="text-sm text-gray-600 ">
           {tags?.map((tag, key) => (

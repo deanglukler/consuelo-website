@@ -50,7 +50,7 @@ export default memo(function IntroTemplate() {
         </div>
 
         <div className="mx-6 md:mx-0 md:mr-24">
-          <h2 className="mb-8 text-xl font-bold tracking-wide md:text-5xl">
+          <h2 className="font-regular mb-8 text-xl tracking-wide md:text-5xl">
             Next steps
           </h2>
 

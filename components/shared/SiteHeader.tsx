@@ -23,7 +23,7 @@ export default function SiteHeader({
       return (
         <header className="mt-5 mb-5 flex flex-col items-center md:mt-16 md:mb-10">
           <Link href="/">
-            <h1 className="hover-interactive mb-3 text-lg font-bold leading-tight tracking-tighter md:text-3xl">
+            <h1 className="hover-interactive mb-3 text-lg leading-tight tracking-tighter md:text-3xl">
               {title}
             </h1>
           </Link>
@@ -47,7 +47,8 @@ export default function SiteHeader({
                     >
                       <p
                         className={cN({
-                          ['text-lg font-bold underline']: isCurrentCategory(),
+                          ['font-regular text-lg underline']:
+                            isCurrentCategory(),
                         })}
                       >
                         {categoryName}
@@ -64,7 +65,7 @@ export default function SiteHeader({
     case 2:
       return (
         <header>
-          <h2 className="mt-8 mb-20 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
+          <h2 className="font-regular mt-8 mb-20 text-2xl leading-tight tracking-tight md:text-4xl md:tracking-tighter">
             <Link href="/" className="hover:underline">
               {title}
             </Link>
