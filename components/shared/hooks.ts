@@ -19,3 +19,28 @@ export function useIntersectionObserverTransition() {
     }
   }, [])
 }
+
+export function useDisableImgContextMenu() {
+  const clearContextMenuOnImgs = () => {
+    console.log('running')
+    const allImages = document.querySelectorAll('img')
+    allImages.forEach((value) => {
+      value.oncontextmenu = (e) => {
+        e.preventDefault()
+      }
+    })
+  }
+  useEffect(() => {
+    clearContextMenuOnImgs()
+    window.addEventListener('load', clearContextMenuOnImgs)
+    const observer = new MutationObserver(() => {
+      clearContextMenuOnImgs()
+    })
+    observer.observe(document, { childList: true, subtree: true })
+
+    return () => {
+      window.removeEventListener('load', clearContextMenuOnImgs)
+      observer.disconnect()
+    }
+  }, [])
+}

@@ -3,6 +3,7 @@ import './global.css'
 
 import { IBM_Plex_Mono, PT_Serif, Jost } from '@next/font/google'
 import { AppProps } from 'next/app'
+import { useDisableImgContextMenu } from '../components/shared/hooks'
 
 const mono = IBM_Plex_Mono({
   variable: '--font-mono',
@@ -24,6 +25,7 @@ const serif = PT_Serif({
 })
 
 export default function App({ Component, pageProps }: AppProps) {
+  useDisableImgContextMenu()
   return (
     <>
       <style jsx global>
