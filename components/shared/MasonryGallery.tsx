@@ -1,4 +1,3 @@
-import { urlForImage } from 'lib/sanity.image'
 import Masonry from 'react-masonry-component'
 import { useEffect, useRef, useState } from 'react'
 import { Image as SanityImage, ImageAsset } from 'sanity'
@@ -8,6 +7,7 @@ import {
   FullPageGalleryView,
   useFullPageGalleryView,
 } from './FullPageGalleryView'
+import { largeImageUrl, smallImageUrl } from '../../lib/utils'
 
 interface Props {
   images: SanityImage[]
@@ -22,7 +22,7 @@ export default function MasonryGallery({ images }: Props) {
   const ref = useRef<null | HTMLDivElement>(null)
   const [boundingBoxWidth, setBoundingBoxWidth] = useState<number>(0)
   const fullPageGalleryViewProps = useFullPageGalleryView({
-    images: images.map((s) => urlForImage(s).url()),
+    images: images.map((s) => largeImageUrl(s)), // keep in mind this must martch the url in the onClick function of the photo
   })
 
   useIntersectionObserverTransition()
@@ -76,14 +76,15 @@ export default function MasonryGallery({ images }: Props) {
               className={`hiddenAnim`}
               onClick={() =>
                 fullPageGalleryViewProps.setCurrentImageSource(
-                  urlForImage(source).url()
+                  largeImageUrl(source) // must match the url in given to full page gallery view
                 )
               }
             >
               <Image
-                src={urlForImage(source).url()}
+                src={smallImageUrl(source)}
                 alt={'Beautiful Photo'}
                 fill
+                sizes="(max-width: 600px) 100vw, 50vw"
                 style={{ objectFit: 'contain' }}
               />
             </div>

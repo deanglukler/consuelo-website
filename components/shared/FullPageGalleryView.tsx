@@ -139,6 +139,7 @@ const FullPageGalleryView: React.FC<IFullPageGalleryViewProps> = ({
           src={currentImageSource || ''}
           alt="Beautiful Photo"
           fill
+          sizes="100vw"
           style={{
             objectFit: 'contain',
           }}

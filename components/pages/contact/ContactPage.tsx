@@ -6,7 +6,7 @@ import * as demo from 'lib/demo.data'
 import { PageCategory, Settings } from '../../../types'
 import { Footer } from '../../shared/Footer'
 import Image from 'next/image'
-import { urlForImage } from '../../../lib/sanity.image'
+import { smallImageUrl } from '../../../lib/utils'
 
 export interface ContactPageProps {
   preview?: boolean
@@ -28,7 +28,7 @@ export default function ContactPage(props: ContactPageProps) {
           <SiteHeader title={title} pageCategories={pageCategories} level={1} />
           <div className="relative h-[200px] w-[200px]">
             <Image
-              src={urlForImage(profileImage).url()}
+              src={smallImageUrl(profileImage)}
               fill
               alt="photographers profile image"
             />

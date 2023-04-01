@@ -3,7 +3,6 @@ import { CustomPortableText } from 'components/shared/CustomPortableText'
 import ScrollUp from 'components/shared/ScrollUp'
 import Image from 'next/image'
 import { PagePayload, PageCategory, Settings } from 'types'
-import { urlForImage } from '../../../lib/sanity.image'
 import Container from '../../shared/Container'
 import { Footer } from '../../shared/Footer'
 import MasonryGallery from '../../shared/MasonryGallery'
@@ -11,6 +10,7 @@ import Layout from '../../shared/Layout'
 import SiteHeader from '../../shared/SiteHeader'
 
 import PageHead from './PageHead'
+import { largeImageUrl } from '../../../lib/utils'
 
 export interface PageProps {
   page: PagePayload | undefined
@@ -44,7 +44,7 @@ export function Page({ page, settings, preview, pageCategories }: PageProps) {
         {!galleryImages && (
           <div className="relative w-full pt-[60%] sm:pt-[40%]">
             <Image
-              src={urlForImage(coverImage).url()}
+              src={largeImageUrl(coverImage)}
               alt={`Preview image for ${title} page`}
               fill
               style={{ objectFit: 'cover' }}
