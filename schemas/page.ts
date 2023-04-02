@@ -28,7 +28,24 @@ export default defineType({
       name: 'coverImage',
       title: 'Cover Image',
       type: 'image',
+      description:
+        'This image will be used as a preview for portfolio pages and blog pages.',
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'coverImagePosition',
+      title: 'Cover Image Position',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Center', value: 'center' },
+          { title: 'Top', value: 'top' },
+          { title: 'Bottom', value: 'bottom' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'center',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       type: 'reference',
@@ -74,6 +91,8 @@ export default defineType({
       type: 'reference',
       name: 'gallery',
       title: 'Gallery',
+      description:
+        'Use a gallery as the main content of the page.  Note that if a gallery is selected the Cover Image will not be displayed on the page.',
       to: [{ type: 'gallery' }],
     }),
     defineField({

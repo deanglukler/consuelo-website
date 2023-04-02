@@ -13,6 +13,7 @@ export interface PagePayload {
   title?: string
   slug?: string
   coverImage?: any
+  coverImagePosition?: string
   gallery?: Gallery
   pageCategory?: PageCategory
 }

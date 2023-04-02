@@ -48,35 +48,45 @@ export default function CategoryPage(props: PageProps) {
           gridTemplateColumns: `repeat(auto-fit, minmax(min(20rem, 100%), 1fr))`,
         }}
       >
-        {pages.map(({ title = 'NO TITLE', slug, overview, coverImage }) => {
-          return (
-            <Link key={slug} href={PAGE_PATH(pageCategory?.slug, slug)}>
-              <div
-                style={{
-                  paddingTop: '56.25%', // padding hack 16:9 ratio
-                  position: 'relative',
-                }}
-                className="page-preview-hover"
-              >
-                <Image
-                  src={smallImageUrl(coverImage)}
-                  alt={title}
-                  fill
+        {pages.map(
+          ({
+            title = 'NO TITLE',
+            slug,
+            overview,
+            coverImage,
+            coverImagePosition = 'center',
+          }) => {
+            return (
+              <Link key={slug} href={PAGE_PATH(pageCategory?.slug, slug)}>
+                <div
                   style={{
-                    objectFit: 'cover',
-                    display: 'block',
+                    paddingTop: '56.25%', // padding hack 16:9 ratio
+                    position: 'relative',
                   }}
-                />
-              </div>
-              <h3 className="my-2 text-xl font-regular sm:text-3xl">{title}</h3>
-              {overview && (
-                <div className="text-sm text-gray-600">
-                  <PortableText value={overview} />
+                  className="page-preview-hover"
+                >
+                  <Image
+                    src={smallImageUrl(coverImage)}
+                    alt={title}
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                      objectPosition: coverImagePosition,
+                    }}
+                  />
                 </div>
-              )}
-            </Link>
-          )
-        })}
+                <h3 className="my-2 text-xl font-regular sm:text-3xl">
+                  {title}
+                </h3>
+                {overview && (
+                  <div className="text-sm text-gray-600">
+                    <PortableText value={overview} />
+                  </div>
+                )}
+              </Link>
+            )
+          }
+        )}
       </div>
     )
   }

@@ -22,7 +22,14 @@ export interface PageProps {
 
 export function Page({ page, settings, preview, pageCategories }: PageProps) {
   // Default to an empty object to allow previews on non-existent documents
-  const { title, body, coverImage, gallery, pageCategory } = page || {}
+  const {
+    title,
+    body,
+    coverImage,
+    gallery,
+    pageCategory,
+    coverImagePosition = 'center',
+  } = page || {}
   const { title: siteTitle = '' } = settings || {}
 
   const galleryImages = gallery?.images
@@ -49,7 +56,10 @@ export function Page({ page, settings, preview, pageCategories }: PageProps) {
                 src={largeImageUrl(coverImage)}
                 alt={`Preview image for ${title} page`}
                 fill
-                style={{ objectFit: 'cover' }}
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: coverImagePosition,
+                }}
               />
             </div>
           </div>

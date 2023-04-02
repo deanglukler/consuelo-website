@@ -9,7 +9,7 @@ const galleryFields = groq`
 `
 
 const pageFields = groq`
-  _id,
+  ...,
   body[]{
     ...,
     _type == "gallery" => {
@@ -19,10 +19,7 @@ const pageFields = groq`
     }
     
   },
-  overview,
-  title,
   "slug": slug.current,
-  coverImage,
   gallery->{
     ${galleryFields}
   },
