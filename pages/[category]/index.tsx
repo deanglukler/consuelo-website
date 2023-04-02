@@ -15,6 +15,7 @@ import { PortableText } from '@portabletext/react'
 import { Footer } from '../../components/shared/Footer'
 import { getCommonPageProps } from '../../lib/getCommonPageProps'
 import { smallImageUrl } from '../../lib/utils'
+import IndexPageHead from 'components/pages/homepage/IndexPageHead'
 
 interface PageProps {
   pages?: PagePayload[]
@@ -67,7 +68,7 @@ export default function CategoryPage(props: PageProps) {
                   }}
                 />
               </div>
-              <h3 className="font-regular my-2 text-xl sm:text-3xl">{title}</h3>
+              <h3 className="my-2 text-xl font-regular sm:text-3xl">{title}</h3>
               {overview && (
                 <div className="text-sm text-gray-600">
                   <PortableText value={overview} />
@@ -82,6 +83,7 @@ export default function CategoryPage(props: PageProps) {
 
   return (
     <>
+      <IndexPageHead settings={settings} title={pageCategory?.categoryName} />
       <Layout preview={preview}>
         <Container>
           <SiteHeader

@@ -3,7 +3,7 @@ import SiteHeader from 'components/shared/SiteHeader'
 import Layout from 'components/shared/Layout'
 import IndexPageHead from 'components/pages/homepage/IndexPageHead'
 import * as demo from 'lib/demo.data'
-import { Gallery, PageCategory, Post, Settings } from '../../../types'
+import { Gallery, PageCategory, Settings } from '../../../types'
 import MasonryGallery from '../../shared/MasonryGallery'
 import { Footer } from '../../shared/Footer'
 

@@ -1,19 +1,19 @@
 import { toPlainText } from '@portabletext/react'
 import { SiteMeta } from 'components/shared/SiteMeta'
-import { PagePayload, SettingsPayload } from 'types'
+import { PagePayload, Settings } from 'types'
 
 export interface PageHeadProps {
-  title: string | undefined
+  siteTitle: string | undefined
   page: PagePayload | undefined
-  settings: SettingsPayload | undefined
+  settings: Settings | undefined
 }
 
-export default function PageHead({ title, page, settings }: PageHeadProps) {
+export default function PageHead({ siteTitle, page, settings }: PageHeadProps) {
   return (
     <SiteMeta
-      baseTitle={title}
+      baseTitle={siteTitle}
       description={page?.overview ? toPlainText(page.overview) : ''}
-      image={settings?.ogImage}
+      image={page?.coverImage}
       title={page?.title}
     />
   )

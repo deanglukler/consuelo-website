@@ -6,35 +6,6 @@ export interface MenuItem {
   title?: string
 }
 
-export interface MilestoneItem {
-  description?: string
-  duration?: {
-    start?: string
-    end?: string
-  }
-  image?: Image
-  tags?: string[]
-  title?: string
-}
-
-export interface ShowcaseProject {
-  _type: string
-  coverImage?: Image
-  overview?: PortableTextBlock[]
-  slug?: string
-  tags?: string[]
-  title?: string
-}
-
-// Page payloads
-
-export interface HomePagePayload {
-  footer?: PortableTextBlock[]
-  overview?: PortableTextBlock[]
-  showcaseProjects?: ShowcaseProject[]
-  title?: string
-}
-
 export interface PagePayload {
   body?: PortableTextBlock[]
   name?: string
@@ -46,50 +17,11 @@ export interface PagePayload {
   pageCategory?: PageCategory
 }
 
-export interface ProjectPayload {
-  client?: string
-  coverImage?: Image
-  description?: PortableTextBlock[]
-  duration?: {
-    start?: string
-    end?: string
-  }
-  overview?: PortableTextBlock[]
-  site?: string
-  slug: string
-  tags?: string[]
-  title?: string
-}
-
-export interface SettingsPayload {
-  footer?: PortableTextBlock[]
-  menuItems?: MenuItem[]
-  ogImage?: Image
-}
-
-export interface Author {
-  name?: string
-  picture?: any
-}
-
-export interface Post {
-  _id: string
-  title?: string
-  coverImage?: any
-  date?: string
-  excerpt?: string
-  author?: Author
-  slug?: string
-  content?: any
-}
-
 export interface Settings {
   title?: string
   profileImage: Image
-  description?: any[]
-  ogImage?: {
-    title?: string
-  }
+  description?: string
+  openGraphImage: Image
 }
 
 export type Gallery = {

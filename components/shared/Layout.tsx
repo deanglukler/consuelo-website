@@ -1,11 +1,11 @@
 import AlertBanner from 'components/shared/AlertBanner'
 
 export default function Layout({
-  preview,
-  loading,
+  preview = false,
+  loading = false,
   children,
 }: {
-  preview: boolean
+  preview?: boolean
   loading?: boolean
   children: React.ReactNode
 }) {

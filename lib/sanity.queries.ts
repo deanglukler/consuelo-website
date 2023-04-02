@@ -40,6 +40,10 @@ export const settingsQuery = groq`*[_type == "settings"][0]{
   profileImage{
     ...,
     asset->
+  },
+  openGraphImage{
+    ...,
+    asset->
   }
 }`
 

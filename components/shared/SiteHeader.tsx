@@ -21,9 +21,9 @@ export default function SiteHeader({
   switch (level) {
     case 1:
       return (
-        <header className="mt-5 mb-5 flex flex-col items-center md:mt-16 md:mb-10">
+        <header className="flex flex-col items-center mt-5 mb-5 md:mt-16 md:mb-10">
           <Link href="/">
-            <h1 className="hover-interactive mb-3 text-2xl leading-tight tracking-tighter">
+            <h1 className="mb-3 text-3xl leading-tight tracking-tighter hover-interactive">
               {title}
             </h1>
           </Link>
@@ -47,8 +47,7 @@ export default function SiteHeader({
                     >
                       <p
                         className={cN({
-                          ['font-regular text-lg underline']:
-                            isCurrentCategory(),
+                          ['font-medium underline']: isCurrentCategory(),
                         })}
                       >
                         {categoryName}
@@ -65,7 +64,7 @@ export default function SiteHeader({
     case 2:
       return (
         <header>
-          <h2 className="font-regular mt-8 mb-20 text-2xl leading-tight tracking-tight md:text-4xl md:tracking-tighter">
+          <h2 className="mt-8 mb-20 text-2xl leading-tight tracking-tight font-regular md:text-4xl md:tracking-tighter">
             <Link href="/" className="hover:underline">
               {title}
             </Link>

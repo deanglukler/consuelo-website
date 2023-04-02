@@ -29,7 +29,7 @@ export function Page({ page, settings, preview, pageCategories }: PageProps) {
 
   return (
     <>
-      <PageHead page={page} settings={settings} title={title} />
+      <PageHead page={page} settings={settings} siteTitle={siteTitle} />
 
       <Layout preview={preview}>
         <Container>
