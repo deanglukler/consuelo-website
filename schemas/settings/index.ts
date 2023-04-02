@@ -26,9 +26,6 @@ export default defineType({
       title: 'Profile Image',
       type: 'image',
       description: 'Photo used on Contact page',
-      options: {
-        hotspot: true,
-      },
       validation: (rule) => rule.required(),
     }),
     defineField({

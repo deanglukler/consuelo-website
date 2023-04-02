@@ -11,6 +11,7 @@ import SiteHeader from '../../shared/SiteHeader'
 
 import PageHead from './PageHead'
 import { largeImageUrl } from '../../../lib/utils'
+import { ReadableContainer } from '../../shared/ReadableContainer'
 
 export interface PageProps {
   page: PagePayload | undefined
@@ -42,16 +43,18 @@ export function Page({ page, settings, preview, pageCategories }: PageProps) {
         </Container>
 
         {!galleryImages && (
-          <div className="relative w-full pt-[60%] sm:pt-[40%]">
-            <Image
-              src={largeImageUrl(coverImage)}
-              alt={`Preview image for ${title} page`}
-              fill
-              style={{ objectFit: 'cover' }}
-            />
+          <div className="mx-auto w-full max-w-[1500px]">
+            <div className="relative w-full pt-[55%] sm:pt-[40%]">
+              <Image
+                src={largeImageUrl(coverImage)}
+                alt={`Preview image for ${title} page`}
+                fill
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
           </div>
         )}
-        <Container>
+        <ReadableContainer>
           <h1
             className={cN('mt-12', 'text-3xl', 'sm:mt-12', 'font-regular', {
               ['mb-12 text-center']: galleryImages,
@@ -66,7 +69,7 @@ export function Page({ page, settings, preview, pageCategories }: PageProps) {
 
           {/* Workaround: scroll to top on route change */}
           <ScrollUp />
-        </Container>
+        </ReadableContainer>
       </Layout>
       <Footer />
     </>

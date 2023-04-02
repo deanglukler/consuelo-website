@@ -1,5 +1,12 @@
 body {
   font-weight: 300;
+  font-size: 20px;
+}
+
+@media (min-width: 1536px) {
+  body {
+    font-size: 24px;
+  }
 }
 
 .hiddenAnim {

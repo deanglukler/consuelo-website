@@ -23,7 +23,7 @@ export default function SiteHeader({
       return (
         <header className="mt-5 mb-5 flex flex-col items-center md:mt-16 md:mb-10">
           <Link href="/">
-            <h1 className="hover-interactive mb-3 text-lg leading-tight tracking-tighter md:text-3xl">
+            <h1 className="hover-interactive mb-3 text-2xl leading-tight tracking-tighter">
               {title}
             </h1>
           </Link>

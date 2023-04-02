@@ -28,9 +28,6 @@ export default defineType({
       name: 'coverImage',
       title: 'Cover Image',
       type: 'image',
-      options: {
-        hotspot: true,
-      },
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -114,9 +111,6 @@ export default defineType({
           icon: ImageIcon,
           name: 'image',
           title: 'Image',
-          options: {
-            hotspot: true,
-          },
           preview: {
             select: {
               imageUrl: 'asset.url',

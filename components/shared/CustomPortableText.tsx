@@ -1,6 +1,5 @@
 import { PortableText, PortableTextComponents } from '@portabletext/react'
 import ImageBox from 'components/shared/ImageBox'
-import { TimelineSection } from 'components/shared/TimelineSection'
 import { Image, PortableTextBlock } from 'sanity'
 import { Gallery } from '../../types'
 import MasonryGallery from './MasonryGallery'
@@ -52,10 +51,6 @@ export function CustomPortableText({
             )}
           </div>
         )
-      },
-      timeline: ({ value }) => {
-        const { items } = value || {}
-        return <TimelineSection timelines={items} />
       },
       gallery: ({ value }: { value: { galleryData: Gallery } }) => {
         return <MasonryGallery images={value.galleryData.images || []} />
