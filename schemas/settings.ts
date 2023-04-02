@@ -1,6 +1,6 @@
 import { CogIcon } from '@sanity/icons'
 import * as demo from 'lib/demo.data'
-import { defineField, defineType } from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'settings',
@@ -24,6 +24,21 @@ export default defineType({
       title: 'Profile Image',
       type: 'image',
       description: 'Photo used on Contact page',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'contactPageBody',
+      title: 'Contact Page Body',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'block',
+          styles: [
+            { title: 'Heading', value: 'h2' },
+            { title: 'Sub Heading', value: 'h3' },
+          ],
+        }),
+      ],
       validation: (rule) => rule.required(),
     }),
     defineField({
