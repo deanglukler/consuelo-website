@@ -9,10 +9,6 @@
   @apply my-6 text-gray-800;
 }
 
-.portableText p {
-  @apply leading-7;
-}
-
 .portableText ul,
 .portableText ol {
   @apply ml-5;

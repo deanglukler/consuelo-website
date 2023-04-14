@@ -11,4 +11,4 @@ export const IMAGE_WIDTH = {
   lg: 1500,
 }
 
-export const ISR_REVALIDATION_TIME = 60
+export const ISR_REVALIDATION_TIME = 21600 // 6 hours
