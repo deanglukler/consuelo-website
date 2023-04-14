@@ -19,6 +19,8 @@ export default function SiteHeader({
   settings: Settings | undefined
 }) {
   const { title = '', siteLogo } = settings || {}
+
+  const menuLinkClassName = 'hover-interactive hover:underline'
   return (
     <header className="mt-5 mb-5 flex flex-col items-center md:mt-16 md:mb-10">
       {siteLogo && (
@@ -54,7 +56,7 @@ export default function SiteHeader({
                 <Link
                   key={_id}
                   href={PAGE_CATEGORY_PATH(slug)}
-                  className="hover-interactive hover:underline"
+                  className={menuLinkClassName}
                 >
                   <p
                     className={cN({
@@ -66,7 +68,9 @@ export default function SiteHeader({
                 </Link>
               )
             })}
-          <Link href="/contact">Contact</Link>
+          <Link href="/contact" className={menuLinkClassName}>
+            Contact
+          </Link>
         </ul>
       )}
     </header>
