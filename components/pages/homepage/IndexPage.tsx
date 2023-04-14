@@ -17,7 +17,6 @@ export interface IndexPageProps {
 
 export default function IndexPage(props: IndexPageProps) {
   const { preview, loading, settings, homeGallery, pageCategories } = props
-  const { title = demo.title } = settings || {}
 
   return (
     <>
@@ -25,7 +24,7 @@ export default function IndexPage(props: IndexPageProps) {
 
       <Layout preview={Boolean(preview)} loading={loading}>
         <Container>
-          <SiteHeader title={title} pageCategories={pageCategories} level={1} />
+          <SiteHeader settings={settings} pageCategories={pageCategories} />
           <MasonryGallery images={homeGallery?.images || []} />
         </Container>
       </Layout>

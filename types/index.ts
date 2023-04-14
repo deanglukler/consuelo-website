@@ -20,6 +20,7 @@ export interface PagePayload {
 
 export interface Settings {
   title?: string
+  siteLogo?: Image
   profileImage: Image
   contactPageBody: any[]
   description?: string

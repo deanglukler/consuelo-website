@@ -1,5 +1,5 @@
 import IndexPage from 'components/pages/homepage/IndexPage'
-import { GetServerSideProps } from 'next'
+import { GetStaticProps } from 'next'
 import { getCommonPageProps } from '../lib/getCommonPageProps'
 import { Gallery, PageCategory, Settings } from '../types'
 
@@ -32,7 +32,7 @@ export default function Page(props: PageProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps<
+export const getStaticProps: GetStaticProps<
   PageProps,
   Query,
   PreviewData

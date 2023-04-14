@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import {
   getPageCategoryBySlug,
   getPagesByPageCategorySlug,
@@ -16,6 +16,7 @@ import { Footer } from '../../components/shared/Footer'
 import { getCommonPageProps } from '../../lib/getCommonPageProps'
 import { smallImageUrl } from '../../lib/utils'
 import IndexPageHead from 'components/pages/homepage/IndexPageHead'
+import { ISR_REVALIDATION_TIME } from '../../lib/CONST'
 
 interface PageProps {
   pages?: PagePayload[]
@@ -36,7 +37,6 @@ interface PreviewData {
 
 export default function CategoryPage(props: PageProps) {
   const { preview, settings, pageCategories, pageCategory, pages } = props
-  const { title: siteTitle = '' } = settings || {}
 
   function renderPages() {
     if (!pages) return null
@@ -75,7 +75,7 @@ export default function CategoryPage(props: PageProps) {
                     }}
                   />
                 </div>
-                <h3 className="my-2 text-xl font-regular sm:text-3xl">
+                <h3 className="font-regular my-2 text-xl sm:text-3xl">
                   {title}
                 </h3>
                 {overview && (
@@ -97,10 +97,9 @@ export default function CategoryPage(props: PageProps) {
       <Layout preview={preview}>
         <Container>
           <SiteHeader
-            title={siteTitle}
+            settings={settings}
             pageCategories={pageCategories}
             currentCategory={pageCategory}
-            level={1}
           />
           <div className="mb-14">
             {renderPages()}
@@ -115,7 +114,7 @@ export default function CategoryPage(props: PageProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps<
+export const getStaticProps: GetStaticProps<
   PageProps,
   Query,
   PreviewData
@@ -143,5 +142,13 @@ export const getServerSideProps: GetServerSideProps<
       preview,
       token: previewData.token ?? null,
     },
+    revalidate: ISR_REVALIDATION_TIME,
   }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // We'll pre-render only these paths at build time.
+  // { fallback: 'blocking' } will server-render pages
+  // on-demand if the path doesn't exist.
+  return { paths: [], fallback: 'blocking' }
 }

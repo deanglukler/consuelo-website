@@ -1,11 +1,12 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import { Page } from 'components/pages/page/Page'
 import { getPageBySlug } from 'lib/sanity.client'
-import { GetServerSideProps } from 'next'
+import { GetStaticProps, GetStaticPaths } from 'next'
 import { lazy } from 'react'
 import { PagePayload, Settings, PageCategory } from 'types'
 import { PreviewWrapper } from '../../components/preview/PreviewWrapper'
 import { getCommonPageProps } from '../../lib/getCommonPageProps'
+import { ISR_REVALIDATION_TIME } from '../../lib/CONST'
 
 const PagePreview = lazy(() => import('components/pages/page/PagePreview'))
 
@@ -62,7 +63,7 @@ export default function ProjectSlugRoute(props: PageProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps<
+export const getStaticProps: GetStaticProps<
   PageProps,
   Query,
   PreviewData
@@ -91,5 +92,13 @@ export const getServerSideProps: GetServerSideProps<
       preview,
       token: previewData.token ?? null,
     },
+    revalidate: ISR_REVALIDATION_TIME,
   }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // We'll pre-render only these paths at build time.
+  // { fallback: 'blocking' } will server-render pages
+  // on-demand if the path doesn't exist.
+  return { paths: [], fallback: 'blocking' }
 }

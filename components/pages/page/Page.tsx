@@ -42,10 +42,9 @@ export function Page({ page, settings, preview, pageCategories }: PageProps) {
         <Container>
           {/* Header */}
           <SiteHeader
-            title={siteTitle}
+            settings={settings}
             pageCategories={pageCategories}
             currentCategory={pageCategory}
-            level={1}
           />
         </Container>
 

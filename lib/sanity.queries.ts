@@ -34,6 +34,10 @@ const pageCategoryFields = groq`
 
 export const settingsQuery = groq`*[_type == "settings"][0]{
   ...,
+  siteLogo{
+    ...,
+    asset->
+  },
   profileImage{
     ...,
     asset->

@@ -26,7 +26,7 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [pageCategoryType, settingsType, galleryType, pageType],
+    types: [settingsType, galleryType, pageType, pageCategoryType],
   },
   plugins: [
     deskTool({

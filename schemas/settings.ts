@@ -3,13 +3,13 @@ import * as demo from 'lib/demo.data'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export default defineType({
+  // Uncomment below to have edits publish automatically as you type
+  // liveEdit: true,
   name: 'settings',
   title: 'Settings',
   type: 'document',
   icon: CogIcon,
   preview: { select: { title: 'title', subtitle: 'description' } },
-  // Uncomment below to have edits publish automatically as you type
-  // liveEdit: true,
   fields: [
     defineField({
       name: 'title',
@@ -18,6 +18,13 @@ export default defineType({
       type: 'string',
       initialValue: demo.title,
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'siteLogo',
+      title: 'Site Logo',
+      type: 'image',
+      description:
+        'Logo will appear in the Header of the site instead of the Title',
     }),
     defineField({
       name: 'profileImage',
