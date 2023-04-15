@@ -18,7 +18,18 @@ export interface PagePayload {
   pageCategory?: PageCategory
 }
 
-export interface Settings {
+export interface Socials {
+  email?: string
+  linkedIn?: string
+  facebook?: string
+  instagram?: string
+  twitter?: string
+  youtube?: string
+  tiktok?: string
+  pinterest?: string
+}
+
+export interface Settings extends Socials {
   title?: string
   siteLogo?: Image
   profileImage: Image

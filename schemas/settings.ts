@@ -49,6 +49,75 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'email',
+      title: 'Email Address',
+      type: 'string',
+      validation: (rule) => rule.email(),
+    }),
+    defineField({
+      name: 'linkedIn',
+      title: 'LinkedIn',
+      type: 'url',
+      validation: (Rule) =>
+        Rule.uri({
+          scheme: ['http', 'https'],
+        }),
+    }),
+    defineField({
+      name: 'facebook',
+      title: 'Facebook',
+      type: 'url',
+      validation: (Rule) =>
+        Rule.uri({
+          scheme: ['http', 'https'],
+        }),
+    }),
+    defineField({
+      name: 'instagram',
+      title: 'Instagram',
+      type: 'url',
+      validation: (Rule) =>
+        Rule.uri({
+          scheme: ['http', 'https'],
+        }),
+    }),
+    defineField({
+      name: 'twitter',
+      title: 'Twitter',
+      type: 'url',
+      validation: (Rule) =>
+        Rule.uri({
+          scheme: ['http', 'https'],
+        }),
+    }),
+    defineField({
+      name: 'youtube',
+      title: 'YouTube',
+      type: 'url',
+      validation: (Rule) =>
+        Rule.uri({
+          scheme: ['http', 'https'],
+        }),
+    }),
+    defineField({
+      name: 'tiktok',
+      title: 'TikTok',
+      type: 'url',
+      validation: (Rule) =>
+        Rule.uri({
+          scheme: ['http', 'https'],
+        }),
+    }),
+    defineField({
+      name: 'pinterest',
+      title: 'Pinterest',
+      type: 'url',
+      validation: (Rule) =>
+        Rule.uri({
+          scheme: ['http', 'https'],
+        }),
+    }),
+    defineField({
       name: 'description',
       description: 'Used the <meta> description tag for SEO',
       title: 'Description',

@@ -8,6 +8,7 @@ import { Footer } from '../../shared/Footer'
 import Image from 'next/image'
 import { smallImageUrl } from '../../../lib/utils'
 import { CustomPortableText } from '../../shared/CustomPortableText'
+import { SocialIcons } from './SocialIcons'
 
 export interface ContactPageProps {
   preview?: boolean
@@ -44,9 +45,10 @@ export default function ContactPage(props: ContactPageProps) {
       <Layout preview={preview} loading={loading}>
         <Container>
           <SiteHeader settings={settings} pageCategories={pageCategories} />
-          <div className="m-auto flex max-w-md flex-col items-center">
+          <div className="flex flex-col items-center max-w-md m-auto">
             {renderProfileImage()}
             <CustomPortableText value={contactPageBody} />
+            <SocialIcons socials={settings} />
           </div>
         </Container>
       </Layout>

@@ -153,7 +153,6 @@ const FullPageGalleryView: React.FC<IFullPageGalleryViewProps> = ({
           <Image
             className="hover-interactive"
             src={CloseIcon}
-            priority
             height={32}
             width={32}
             alt="Close Button"
@@ -164,9 +163,8 @@ const FullPageGalleryView: React.FC<IFullPageGalleryViewProps> = ({
           onClick={onPreviousImage}
         >
           <Image
-            className="hover-interactive opacity-50"
+            className="opacity-50 hover-interactive"
             src={ArrowBackOutline}
-            priority
             height={32}
             width={32}
             alt="Previous Photo"
@@ -177,9 +175,8 @@ const FullPageGalleryView: React.FC<IFullPageGalleryViewProps> = ({
           onClick={onNextImage}
         >
           <Image
-            className="hover-interactive opacity-50"
+            className="opacity-50 hover-interactive"
             src={ArrowForwardOutline}
-            priority
             height={32}
             width={32}
             alt="Next Photo"

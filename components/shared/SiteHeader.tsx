@@ -20,9 +20,9 @@ export default function SiteHeader({
 }) {
   const { title = '', siteLogo } = settings || {}
 
-  const menuLinkClassName = 'hover-interactive hover:underline'
+  const menuLinkClassName = 'hover-interactive'
   return (
-    <header className="mt-5 mb-5 flex flex-col items-center md:mt-16 md:mb-10">
+    <header className="flex flex-col items-center mt-5 mb-5 md:mt-16 md:mb-10">
       {siteLogo && (
         <Link href="/">
           <img
@@ -35,13 +35,13 @@ export default function SiteHeader({
       {/* if no logo, render site title */}
       {title && !siteLogo && (
         <Link href="/">
-          <h1 className="hover-interactive text-3xl leading-tight tracking-tighter">
+          <h1 className="text-3xl leading-tight tracking-tighter hover-interactive">
             {title}
           </h1>
         </Link>
       )}
       {pageCategories && (
-        <ul className="mt-3 flex flex-wrap items-center justify-around gap-2 sm:gap-4">
+        <ul className="flex flex-wrap items-center justify-around gap-2 mt-3 sm:gap-4">
           {pageCategories
             .sort(sortByMenuPosition)
             .map(({ categoryName, _id, slug }) => {
@@ -60,7 +60,7 @@ export default function SiteHeader({
                 >
                   <p
                     className={cN({
-                      ['font-medium underline']: isCurrentCategory(),
+                      ['font-medium']: isCurrentCategory(),
                     })}
                   >
                     {categoryName}
