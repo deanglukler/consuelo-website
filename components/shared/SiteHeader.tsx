@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { PAGE_CATEGORY_PATH } from '../../lib/sanity.links'
 import { PageCategory, Settings } from '../../types'
 import { smallImageUrl } from '../../lib/utils'
+import { useRouter } from 'next/router'
+import { CONTACT_PAGE_PATH } from '../../lib/CONST'
 
 function sortByMenuPosition(a: PageCategory, b: PageCategory) {
   return a.menuPosition - b.menuPosition
@@ -18,6 +20,8 @@ export default function SiteHeader({
   currentCategory?: PageCategory
   settings: Settings | undefined
 }) {
+  const router = useRouter()
+  const currentPath = router.asPath
   const { title = '', siteLogo } = settings || {}
 
   const menuLinkClassName = 'hover-interactive'
@@ -68,8 +72,14 @@ export default function SiteHeader({
                 </Link>
               )
             })}
-          <Link href="/contact" className={menuLinkClassName}>
-            Contact
+          <Link href={CONTACT_PAGE_PATH} className={menuLinkClassName}>
+            <p
+              className={cN({
+                ['font-medium']: currentPath === CONTACT_PAGE_PATH,
+              })}
+            >
+              Contact
+            </p>
           </Link>
         </ul>
       )}

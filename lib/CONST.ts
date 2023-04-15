@@ -12,3 +12,5 @@ export const IMAGE_WIDTH = {
 }
 
 export const ISR_REVALIDATION_TIME = 600 // 10 minutes
+
+export const CONTACT_PAGE_PATH = '/contact'
