@@ -4,6 +4,7 @@ import FadeInOut from './FadeInOut'
 import CloseIcon from 'public/close-outline.svg'
 import ArrowForwardOutline from 'public/arrow-forward-outline.svg'
 import ArrowBackOutline from 'public/arrow-back-outline.svg'
+import { LoadingBar } from './TopLoadingBar'
 
 export interface IFullPageGalleryViewProps {
   currentImageSource: string | null
@@ -67,6 +68,12 @@ const FullPageGalleryView: React.FC<IFullPageGalleryViewProps> = ({
   onNextImage,
   onPreviousImage,
 }) => {
+  const [imageLoading, setImageLoading] = useState(true)
+
+  useEffect(() => {
+    setImageLoading(true)
+  }, [currentImageSource])
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
@@ -143,15 +150,21 @@ const FullPageGalleryView: React.FC<IFullPageGalleryViewProps> = ({
           style={{
             objectFit: 'contain',
           }}
+          onLoad={() => setImageLoading(false)}
         />
       )}
+      <LoadingBar finished={!imageLoading} resetIfChanged={imageLoading} />
       <div>
         <button
-          style={{ position: 'fixed', top: 10, right: 10 }}
+          style={{
+            position: 'fixed',
+            top: 10,
+            right: 10,
+          }}
           onClick={onClose}
         >
           <Image
-            className="hover-interactive"
+            className="bg-white rounded-full hover-interactive"
             src={CloseIcon}
             height={32}
             width={32}
@@ -163,7 +176,7 @@ const FullPageGalleryView: React.FC<IFullPageGalleryViewProps> = ({
           onClick={onPreviousImage}
         >
           <Image
-            className="opacity-50 hover-interactive"
+            className="bg-white rounded-full opacity-50 hover-interactive"
             src={ArrowBackOutline}
             height={32}
             width={32}
@@ -175,7 +188,7 @@ const FullPageGalleryView: React.FC<IFullPageGalleryViewProps> = ({
           onClick={onNextImage}
         >
           <Image
-            className="opacity-50 hover-interactive"
+            className="bg-white rounded-full opacity-50 hover-interactive"
             src={ArrowForwardOutline}
             height={32}
             width={32}
