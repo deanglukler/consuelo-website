@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import {
   getPageCategoryBySlug,
   getPagesByPageCategorySlug,
@@ -16,7 +16,6 @@ import { Footer } from '../../components/shared/Footer'
 import { getCommonPageProps } from '../../lib/getCommonPageProps'
 import { smallImageUrl } from '../../lib/utils'
 import IndexPageHead from 'components/pages/homepage/IndexPageHead'
-import { ISR_REVALIDATION_TIME } from '../../lib/CONST'
 
 interface PageProps {
   pages?: PagePayload[]
@@ -75,7 +74,7 @@ export default function CategoryPage(props: PageProps) {
                     }}
                   />
                 </div>
-                <h3 className="font-regular my-2 text-xl sm:text-3xl">
+                <h3 className="my-2 text-xl font-regular sm:text-3xl">
                   {title}
                 </h3>
                 {overview && (
@@ -114,7 +113,7 @@ export default function CategoryPage(props: PageProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps<
+export const getServerSideProps: GetServerSideProps<
   PageProps,
   Query,
   PreviewData
@@ -142,13 +141,5 @@ export const getStaticProps: GetStaticProps<
       preview,
       token: previewData.token ?? null,
     },
-    revalidate: ISR_REVALIDATION_TIME,
   }
-}
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  // We'll pre-render only these paths at build time.
-  // { fallback: 'blocking' } will server-render pages
-  // on-demand if the path doesn't exist.
-  return { paths: [], fallback: 'blocking' }
 }

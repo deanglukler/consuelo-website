@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import ContactPage from '../../components/pages/contact/ContactPage'
 import { getCommonPageProps } from '../../lib/getCommonPageProps'
 import { PageCategory, Settings } from '../../types'
@@ -24,7 +24,7 @@ export default function Page(props: PageProps) {
   return <ContactPage settings={settings} pageCategories={pageCategories} />
 }
 
-export const getStaticProps: GetStaticProps<
+export const getServerSideProps: GetServerSideProps<
   PageProps,
   Query,
   PreviewData
