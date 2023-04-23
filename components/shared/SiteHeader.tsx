@@ -24,7 +24,7 @@ export default function SiteHeader({
   const currentPath = router.asPath
   const { title = '', siteLogo } = settings || {}
 
-  const menuLinkClassName = 'hover-interactive'
+  const menuLinkClassName = 'hover-interactive uppercase font-normal'
   return (
     <header className="flex flex-col items-center mt-1 mb-5 md:mt-4 md:mb-10">
       {siteLogo && (

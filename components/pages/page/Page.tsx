@@ -48,21 +48,6 @@ export function Page({ page, settings, preview, pageCategories }: PageProps) {
           />
         </Container>
 
-        {!galleryImages && (
-          <div className="mx-auto w-full max-w-[1500px]">
-            <div className="relative w-full pt-[55%] sm:pt-[40%]">
-              <Image
-                src={largeImageUrl(coverImage)}
-                alt={`Preview image for ${title} page`}
-                fill
-                style={{
-                  objectFit: 'cover',
-                  objectPosition: coverImagePosition,
-                }}
-              />
-            </div>
-          </div>
-        )}
         <ReadableContainer>
           <h1
             className={cN('mt-12', 'text-3xl', 'sm:mt-12', 'font-regular', {

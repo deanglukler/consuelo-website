@@ -47,10 +47,20 @@ export default function MasonryGallery({ images }: Props) {
     return null
   }
 
-  let { marginLeft, setWidth, marginBottom } = imageDimensions(boundingBoxWidth)
+  let { gutterSizeX, imageWidth, gutterSizeY, columns } =
+    imageDimensions(boundingBoxWidth)
+
+  // adjust image width to take up the space of one gutter width between them
+  imageWidth = imageWidth + gutterSizeX / columns
 
   return (
-    <div ref={ref} style={{ marginLeft: `-${marginLeft}px` }}>
+    <div
+      ref={ref}
+      style={{
+        width: `calc(100% + ${gutterSizeX}px)`,
+        marginLeft: `-${gutterSizeX}px`,
+      }}
+    >
       {/* @ts-ignore */}
       <Masonry>
         {images.map((source) => {
@@ -62,23 +72,24 @@ export default function MasonryGallery({ images }: Props) {
             )
           }
           const { width, height } = imageAsset?.metadata?.dimensions
-          const scaleFactor = setWidth / width
+          const scaleFactor = imageWidth / width
           return (
             <div
               key={imageAsset._id}
-              style={{
-                width: setWidth,
-                height: height * scaleFactor,
-                marginLeft,
-                marginBottom,
-                boxSizing: 'border-box',
-              }}
               className={`hiddenAnim`}
               onClick={() =>
                 fullPageGalleryViewProps.setCurrentImageSource(
                   largeImageUrl(source) // must match the url in given to full page gallery view
                 )
               }
+              style={{
+                marginLeft: gutterSizeX,
+                marginBottom: gutterSizeY,
+                width: imageWidth,
+                height: height * scaleFactor,
+                position: 'relative',
+                boxSizing: 'border-box',
+              }}
             >
               <Image
                 src={smallImageUrl(source)}
@@ -97,18 +108,23 @@ export default function MasonryGallery({ images }: Props) {
 }
 
 function imageDimensions(boundingBoxWidth: number) {
-  let setWidth = 0
-  let marginLeft = 0
-  let marginBottom = GUTTER_MD
+  let columns = 1
+  let imageWidth = 0
+  let gutterSizeX = 0
+  let gutterSizeY = 0
   if (boundingBoxWidth > LG_BREAKPOINT) {
-    marginLeft = GUTTER_LG
-    marginBottom = GUTTER_LG
-    setWidth = boundingBoxWidth / 3 - GUTTER_LG
+    columns = 3
+    gutterSizeX = GUTTER_LG
+    gutterSizeY = GUTTER_LG
+    imageWidth = boundingBoxWidth / columns - GUTTER_LG
   } else if (boundingBoxWidth > MD_BREAKPOINT) {
-    marginLeft = GUTTER_MD
-    setWidth = boundingBoxWidth / 2 - GUTTER_MD
+    columns = 2
+    gutterSizeX = GUTTER_MD
+    gutterSizeY = GUTTER_MD
+    imageWidth = boundingBoxWidth / columns - GUTTER_MD
   } else {
-    setWidth = boundingBoxWidth
+    imageWidth = boundingBoxWidth
+    gutterSizeY = GUTTER_MD
   }
-  return { marginLeft, setWidth, marginBottom }
+  return { gutterSizeX, imageWidth, gutterSizeY, columns }
 }
