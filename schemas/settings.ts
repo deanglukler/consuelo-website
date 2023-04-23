@@ -34,6 +34,12 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'profileName',
+      title: 'Profile Name',
+      type: 'string',
+      description: 'Name displayed underneath the profile image',
+    }),
+    defineField({
       name: 'contactPageBody',
       title: 'Contact Page Body',
       type: 'array',
@@ -47,6 +53,12 @@ export default defineType({
         }),
       ],
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'contactPageBodyStyles',
+      title: 'Contact Page Body Styles',
+      type: 'text',
+      description: 'CSS applied to text.  Some CSS rules cannot be changed',
     }),
     defineField({
       name: 'email',

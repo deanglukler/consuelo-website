@@ -3,14 +3,16 @@ import ImageBox from 'components/shared/ImageBox'
 import { Image, PortableTextBlock } from 'sanity'
 import { Gallery } from '../../types'
 import MasonryGallery from './MasonryGallery'
-import styles from './CustomPortableText.module.css'
+import customPortaleTaxtStyles from './CustomPortableText.module.css'
 
 export function CustomPortableText({
   paragraphClasses,
   value,
+  divStyle,
 }: {
   paragraphClasses?: string
   value: PortableTextBlock[]
+  divStyle?: string
 }) {
   const components: PortableTextComponents = {
     block: {
@@ -59,8 +61,17 @@ export function CustomPortableText({
   }
 
   return (
-    <div className={styles.portableText}>
-      <PortableText components={components} value={value} />
-    </div>
+    <>
+      <style>
+        {`.customPortableTextStyles {
+        ${divStyle}
+      }`}
+      </style>
+      <div
+        className={`${customPortaleTaxtStyles.portableText} customPortableTextStyles`}
+      >
+        <PortableText components={components} value={value} />
+      </div>
+    </>
   )
 }

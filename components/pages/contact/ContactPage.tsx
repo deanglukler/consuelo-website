@@ -2,7 +2,6 @@ import Container from 'components/shared/Container'
 import SiteHeader from 'components/shared/SiteHeader'
 import Layout from 'components/shared/Layout'
 import IndexPageHead from 'components/pages/homepage/IndexPageHead'
-import * as demo from 'lib/demo.data'
 import { PageCategory, Settings } from '../../../types'
 import { Footer } from '../../shared/Footer'
 import Image from 'next/image'
@@ -19,7 +18,12 @@ export interface ContactPageProps {
 
 export default function ContactPage(props: ContactPageProps) {
   const { preview, loading, settings, pageCategories } = props
-  const { profileImage, contactPageBody = [] } = settings || {}
+  const {
+    profileImage,
+    contactPageBody = [],
+    contactPageBodyStyles,
+    profileName,
+  } = settings || {}
 
   function renderProfileImage() {
     return (
@@ -47,7 +51,13 @@ export default function ContactPage(props: ContactPageProps) {
           <SiteHeader settings={settings} pageCategories={pageCategories} />
           <div className="flex flex-col items-center max-w-md m-auto">
             {renderProfileImage()}
-            <CustomPortableText value={contactPageBody} />
+            {profileName && (
+              <h2 className="mt-8 mb-2 text-2xl leading-snug">{profileName}</h2>
+            )}
+            <CustomPortableText
+              value={contactPageBody}
+              divStyle={contactPageBodyStyles}
+            />
             <SocialIcons socials={settings} />
           </div>
         </Container>

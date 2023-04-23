@@ -33,7 +33,9 @@ export interface Settings extends Socials {
   title?: string
   siteLogo?: Image
   profileImage: Image
+  profileName?: string
   contactPageBody: any[]
+  contactPageBodyStyles?: string
   description?: string
   openGraphImage: Image
 }
