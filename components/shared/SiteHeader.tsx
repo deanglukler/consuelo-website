@@ -26,13 +26,13 @@ export default function SiteHeader({
 
   const menuLinkClassName = 'hover-interactive'
   return (
-    <header className="flex flex-col items-center mt-5 mb-5 md:mt-16 md:mb-10">
+    <header className="flex flex-col items-center mt-1 mb-5 md:mt-4 md:mb-10">
       {siteLogo && (
         <Link href="/">
           <img
             src={smallImageUrl(siteLogo)}
             alt={`Site Logo`}
-            className="max-w-[150px]"
+            className="max-h-[110px] md:max-h-[140px]"
           />
         </Link>
       )}
@@ -45,7 +45,10 @@ export default function SiteHeader({
         </Link>
       )}
       {pageCategories && (
-        <ul className="flex flex-wrap items-center justify-around gap-2 mt-3 sm:gap-4">
+        <ul
+          style={{ borderColor: 'black', borderBottomWidth: 1 }}
+          className="flex flex-wrap items-center justify-between w-full gap-2 pb-3 mt-3 sm:gap-4"
+        >
           {pageCategories
             .sort(sortByMenuPosition)
             .map(({ categoryName, _id, slug }) => {
