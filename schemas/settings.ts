@@ -1,6 +1,7 @@
 import { CogIcon } from '@sanity/icons'
 import * as demo from 'lib/demo.data'
 import { defineArrayMember, defineField, defineType } from 'sanity'
+import { blockTextDecorators } from './studio-utils/blockTextDecorators'
 
 export default defineType({
   // Uncomment below to have edits publish automatically as you type
@@ -50,15 +51,12 @@ export default defineType({
             { title: 'Heading', value: 'h2' },
             { title: 'Sub Heading', value: 'h3' },
           ],
+          marks: {
+            decorators: blockTextDecorators,
+          },
         }),
       ],
       validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: 'contactPageBodyStyles',
-      title: 'Contact Page Body Styles',
-      type: 'text',
-      description: 'CSS applied to text.  Some CSS rules cannot be changed',
     }),
     defineField({
       name: 'email',

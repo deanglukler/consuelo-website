@@ -32,6 +32,19 @@ export function CustomPortableText({
           </a>
         )
       },
+      justify: ({ children }) => {
+        return (
+          <span
+            style={{
+              display: 'block',
+              textAlign: 'justify',
+              textJustify: 'inter-word',
+            }}
+          >
+            {children}
+          </span>
+        )
+      },
     },
     types: {
       image: ({

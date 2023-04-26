@@ -1,5 +1,6 @@
 import { DocumentIcon, ImageIcon } from '@sanity/icons'
 import { defineArrayMember, defineField, defineType } from 'sanity'
+import { blockTextDecorators } from './studio-utils/blockTextDecorators'
 
 export default defineType({
   type: 'document',
@@ -119,6 +120,7 @@ export default defineType({
                 ],
               },
             ],
+            decorators: blockTextDecorators,
           },
           styles: [
             { title: 'Heading', value: 'h2' },

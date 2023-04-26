@@ -24,9 +24,10 @@ export default function SiteHeader({
   const currentPath = router.asPath
   const { title = '', siteLogo } = settings || {}
 
-  const menuLinkClassName = 'hover-interactive uppercase font-normal'
+  const menuLinkClassName =
+    'hover-interactive uppercase font-light text-base lg:text-xl'
   return (
-    <header className="flex flex-col items-center mt-1 mb-5 md:mt-4 md:mb-10">
+    <header className="mt-1 mb-5 flex flex-col items-center md:mt-4 md:mb-10">
       {siteLogo && (
         <Link href="/">
           <img
@@ -39,7 +40,7 @@ export default function SiteHeader({
       {/* if no logo, render site title */}
       {title && !siteLogo && (
         <Link href="/">
-          <h1 className="text-3xl leading-tight tracking-tighter hover-interactive">
+          <h1 className="hover-interactive text-3xl leading-tight tracking-tighter">
             {title}
           </h1>
         </Link>
@@ -47,7 +48,7 @@ export default function SiteHeader({
       {pageCategories && (
         <ul
           style={{ borderColor: 'black', borderBottomWidth: 1 }}
-          className="flex flex-wrap items-center justify-between w-full gap-2 pb-3 mt-3 sm:gap-4"
+          className="mt-3 flex w-full flex-wrap items-center justify-between gap-2 pb-3 sm:gap-4"
         >
           {pageCategories
             .sort(sortByMenuPosition)
@@ -67,7 +68,7 @@ export default function SiteHeader({
                 >
                   <p
                     className={cN({
-                      ['font-medium']: isCurrentCategory(),
+                      ['font-normal']: isCurrentCategory(),
                     })}
                   >
                     {categoryName}
@@ -78,7 +79,7 @@ export default function SiteHeader({
           <Link href={CONTACT_PAGE_PATH} className={menuLinkClassName}>
             <p
               className={cN({
-                ['font-medium']: currentPath === CONTACT_PAGE_PATH,
+                ['font-normal']: currentPath === CONTACT_PAGE_PATH,
               })}
             >
               Contact
