@@ -19,7 +19,7 @@ This repository contains a web application built with TypeScript, React, and Nex
 
 To set up the project locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/your-repo.git`
+1. Clone the repository: `git clone https://github.com/deanglukler/consuelo-website`
 2. Install dependencies: `npm install`
 
 ## Usage
